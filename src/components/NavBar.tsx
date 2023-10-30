@@ -1,24 +1,27 @@
-import { NavLink } from "react-router-dom"
+import { Link } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 import './Navbar.css'
 
-export const Navbar = () => {
+function NavigationBar() {
     return (
-        <nav className='nav'>
-            <div className='nav__wrapper'>
-                <div className='nav__links'>
-                    <NavLink to='/containers' className='nav__link'>Список контейнеров</NavLink>
-                    <NavLink to='/transportations' className='nav__link'>Перевозки</NavLink>
-                </div>
-                <div className='nav__mobile-wrapper'
-                    onClick={(event) => event.currentTarget.classList.toggle('active')}
-                >
-                    <div className='nav__mobile-target' />
-                    <div className='nav__mobile-menu' onClick={(event) => event.stopPropagation()}>
-                        <NavLink to='/containers' className='nav__link'>Список контейнеров</NavLink>
-                        <NavLink to='/transportations' className='nav__link'>Перевозки</NavLink>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    )
+        <Navbar expand="sm" className="bg-body-tertiary">
+            <Container>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto">
+                        <Nav.Item>
+                            <Link to="/containers" className="nav-link">Контейнеры</Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Link to="/transportations" className="nav-link">Перевозки</Link>
+                        </Nav.Item>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
+    );
 }
+
+export default NavigationBar;
