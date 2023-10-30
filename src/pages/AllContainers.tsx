@@ -1,8 +1,9 @@
+import ContainerLayout from "../components/ContainerLayout"
+
 const AllContainers = () => {
     return (
         <div>
-            <h1>This is main page</h1>
-            <p>Here will be all containers</p>
+            <ContainerLayout/>
         </div>
     )
 }

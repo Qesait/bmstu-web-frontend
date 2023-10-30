@@ -1,31 +1,28 @@
 import { FC } from 'react'
-import { Button, Card } from 'react-bootstrap'
-import './ContainerCard.css'
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
-interface Props {
+export interface IContairnerProps {
     uuid: string
     marking: string
     type: string
     length: number
     height: number
     width: number
-    imageUrl: string
+    image_url: string
     cargo: string
     weight: number
 }
 
-const ContainerCard: FC<Props> = ({ uuid, marking, type, length, height, width, imageUrl, cargo, weight }) => (
+export const ContainerCard: FC<IContairnerProps> = ({ uuid, marking, type, length, height, width, image_url, cargo, weight }) => (
     <Card className="card">
-        <Card.Img className="cardImage" variant="top" src={imageUrl} />
+        <Card.Img variant="top" src={`http://${image_url}`} />
         <Card.Body>
-            <div className="textStyle">
-                <Card.Title>{marking}</Card.Title>
-            </div>
-            <div className="textStyle">
-                <Card.Text>
-                    {cargo}
-                </Card.Text>
-            </div>
+            <Card.Title>{marking}</Card.Title>
+            <Card.Text>
+                {cargo}
+            </Card.Text>
+            <Button variant="primary">Go somewhere</Button>
         </Card.Body>
     </Card>
 )
