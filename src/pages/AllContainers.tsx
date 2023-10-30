@@ -1,4 +1,4 @@
-const Main = () => {
+const AllContainers = () => {
     return (
         <div>
             <h1>This is main page</h1>
@@ -7,4 +7,4 @@ const Main = () => {
     )
 }
 
-export { Main }
+export { AllContainers }

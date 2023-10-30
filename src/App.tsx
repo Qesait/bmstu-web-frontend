@@ -1,19 +1,19 @@
 import './App.css'
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
-import { Main } from './pages/MainPage'
-import { Container } from './pages/ContainerPage'
+import { AllContainers } from './pages/AllContainers'
+import { ContainerInfo } from './pages/ContainerInfo'
+import { NotImplemented } from './pages/NotImplemented'
+import { Navbar } from './components/NavBar'
 
 function App() {
   return (
     <>
-      <header>
-        <Link to="/">Home</Link>
-        <Link to="/containers">Container</Link>
-      </header>
+      <Navbar />
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/containers" element={<Container />} />
+        <Route path="/containers" element={<AllContainers />} />
+        <Route path="/containers/:container_id" element={<ContainerInfo />} />
+        <Route path="/transportations" element={<NotImplemented />} />
       </Routes>
     </>
   )
