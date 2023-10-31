@@ -1,5 +1,6 @@
-import React, { FC, useEffect, useState } from 'react';
-import { ContainerCard, IContairnerProps } from './ContainerCard';
+import { FC, useEffect, useState } from 'react';
+import { SmallCard, IContairnerProps } from './ContainerCard';
+import './ContainerLayout.css'
 
 type Response = {
     draft_transportation: string;
@@ -27,11 +28,12 @@ const ContainerLayout: FC = () => {
                 console.error("Error fetching data:", error);
             });
     }, []);
+
     return (
         <div className='container_layout'>
             {containers && containers.length > 0 ? (
                 containers.map((container) => (
-                    <ContainerCard key={container.uuid} {...container} />
+                    <SmallCard key={container.uuid} {...container} />
                 ))
             ) : (
                 <p>Loading containers...</p>

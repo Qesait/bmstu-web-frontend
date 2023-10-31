@@ -1,13 +1,36 @@
+import { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { BigCard, IContairnerProps } from '../components/ContainerCard';
 
-const ContainerInfo = () => {
+const ContainerInfo: FC = () => {
     let { container_id } = useParams()
+    const [container, setContainer] = useState<IContairnerProps>()
+
+    useEffect(() => {
+        fetch(`/api/containers/${container_id}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(response.statusText)
+                }
+                return response.json() as Promise<IContairnerProps>
+            })
+            .then(data => {
+                setContainer(data)
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error);
+            });
+    }, []);
+
     return (
         <div>
-            <h1>{container_id}</h1>
-            <p>Look, it your container!</p>
-        </div>
+            {container ? (
+                <>
+                    <BigCard {...container} />
+                </>
+            ) : (<p>Loading containers...</p>)}
+        </div >
     )
 }
 
-export {ContainerInfo}
+export { ContainerInfo }
