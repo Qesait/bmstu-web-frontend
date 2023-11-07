@@ -33,11 +33,11 @@ export const SmallCard: FC<IContairnerProps> = ({ uuid, marking, type, image_url
 export const BigCard: FC<IContairnerProps> = ({ marking, type, length, height, width, image_url, cargo, weight }) => {
     return (
         <Card>
-            <Card.Body className=''>
-                <div className=''>
+            <div className='row'>
+                <div className='col-12 col-md-8 px-md-0'>
                     <Card.Img src={`http://${image_url}`} />
                 </div>
-                <div className=''>
+                <Card.Body className='col-12 col-md-4 ps-md-0'>
                     <Card.Title>{marking}</Card.Title>
                     <ListGroup variant="flush">
                         <ListGroup.Item>
@@ -51,8 +51,8 @@ export const BigCard: FC<IContairnerProps> = ({ marking, type, length, height, w
                             <Card.Text>Вес: {weight} кг</Card.Text>
                         </ListGroup.Item>
                     </ListGroup>
-                </div>
-            </Card.Body>
+                </Card.Body>
+            </div>
         </Card>
     );
 };

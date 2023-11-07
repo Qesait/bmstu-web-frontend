@@ -23,13 +23,13 @@ const ContainerInfo: FC = () => {
     }, []);
 
     return (
-        <div>
+        <>
             {container ? (
                 <>
                     <BigCard {...container} />
                 </>
             ) : (<p>Loading containers...</p>)}
-        </div >
+        </ >
     )
 }
 

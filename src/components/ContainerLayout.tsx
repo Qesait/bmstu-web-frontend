@@ -8,7 +8,7 @@ type Response = {
 
 const ContainerLayout: FC = () => {
     const [containers, setContainers] = useState<IContairnerProps[]>([]);
-    const [draftTransportation, setDraftTransportation] = useState('');
+    const [_, setDraftTransportation] = useState('');
 
     useEffect(() => {
         fetch('/api/containers')
