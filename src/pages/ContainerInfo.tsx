@@ -25,10 +25,10 @@ const ContainerInfo: FC = () => {
     return (
         <>
             {container ? (
-                <>
+                <div className='p-3'>
                     <BigCard {...container} />
-                </>
-            ) : (<p>Loading containers...</p>)}
+                </div>
+            ) : (<p>Loading container...</p>)}
         </ >
     )
 }

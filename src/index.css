@@ -25,5 +25,5 @@
 }
 
 :root {
-  --bs-box-shadow: 0 0.5rem 1rem rgba(65, 51, 183, .25);
+  --bs-box-shadow: 0 0.5rem 1rem rgba(65, 51, 183, .25);;
 }

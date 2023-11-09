@@ -1,7 +1,6 @@
 import { FC } from 'react'
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-// import "./ContainerCard.css"
 
 export interface IContairnerProps {
     uuid: string
@@ -32,9 +31,9 @@ export const SmallCard: FC<IContairnerProps> = ({ uuid, marking, type, image_url
 
 export const BigCard: FC<IContairnerProps> = ({ marking, type, length, height, width, image_url, cargo, weight }) => {
     return (
-        <Card>
+        <Card className='shadow p-0'>
             <div className='row'>
-                <div className='col-12 col-md-8 px-md-0'>
+                <div className='col-12 col-md-8 px-md-0overflow-hidden'>
                     <Card.Img src={`http://${image_url}`} />
                 </div>
                 <Card.Body className='col-12 col-md-4 ps-md-0'>
