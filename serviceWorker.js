@@ -42,7 +42,7 @@ function fromNetwork(request, timeout) {
     var timeoutId = setTimeout(reject, timeout);
     fetch(request).then((response) => {
       clearTimeout(timeoutId);
-      if (response.status < 500) {
+      if (response.status < 400) {
         fulfill(response);
       } else {
         reject(new Error(`HTTP error: ${response.status} ${response.statusText}`));
@@ -55,7 +55,7 @@ function fromNetwork(request, timeout) {
 
 self.addEventListener('fetch', (event) => {
   const requestURL = new URL(event.request.url);
-  
+
   if (requestURL.pathname.startsWith('/api/containers')) {
     event.respondWith(
       fromNetwork(event.request, timeout)
