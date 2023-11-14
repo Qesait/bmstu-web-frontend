@@ -10,6 +10,7 @@ export default defineConfig({
       '/images': 'http://localhost:9000'
     }
   },
+  base: "/bmstu-web-frontend",
   plugins: [react()],
   build: {
     manifest: true

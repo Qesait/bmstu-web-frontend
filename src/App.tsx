@@ -9,9 +9,9 @@ import { useEffect } from 'react';
 
 function App() {
 
-  useEffect(()=>{
+  useEffect(() => {
     if ("serviceWorker" in navigator) {
-      window.addEventListener("load", function() {
+      window.addEventListener("load", function () {
         navigator.serviceWorker
           .register("/serviceWorker.js")
           .then(_ => console.log("service worker registered"))
@@ -24,9 +24,9 @@ function App() {
     <>
       <NavigationBar />
       <Routes>
-        <Route path="/containers" element={<AllContainers />} />
-        <Route path="/containers/:container_id" element={<ContainerInfo />} />
-        <Route path="/transportations" element={<NotImplemented />} />
+        <Route path={`${import.meta.env.BASE_URL}/containers`} element={<AllContainers />} />
+        <Route path={`${import.meta.env.BASE_URL}/containers/:container_id`} element={<ContainerInfo />} />
+        <Route path={`${import.meta.env.BASE_URL}/transportations`} element={<NotImplemented />} />
       </Routes>
     </>
   )
