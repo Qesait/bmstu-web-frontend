@@ -55,6 +55,7 @@ function fromNetwork(request, timeout) {
 
 self.addEventListener('fetch', (event) => {
   const requestURL = new URL(event.request.url);
+  console.log("hi from service worker, I am trying to get", requestURL)
 
   if (requestURL.pathname.startsWith('/api/containers')) {
     event.respondWith(
