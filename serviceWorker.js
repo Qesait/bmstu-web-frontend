@@ -55,7 +55,7 @@ function fromNetwork(request, timeout) {
 
 self.addEventListener('fetch', (event) => {
   const requestURL = new URL(event.request.url);
-
+  
   if (requestURL.pathname.startsWith('/api/containers')) {
     event.respondWith(
       fromNetwork(event.request, timeout)
