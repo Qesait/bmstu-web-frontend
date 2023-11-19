@@ -81,7 +81,7 @@ self.addEventListener('fetch', (event) => {
       fromNetwork(event.request, timeout)
         .catch((_) => {
           console.log(`Failed to load image`);
-          return fetch('/placeholder2.jpeg')
+          return fetch(`${import.meta.env.BASE_URL}/placeholder2.jpeg`)
             .then((response) => {
               return new Response(response.body, {
                 status: response.status,
