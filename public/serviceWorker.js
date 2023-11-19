@@ -42,7 +42,7 @@ function fromNetwork(request, timeout) {
     var timeoutId = setTimeout(reject, timeout);
     fetch(request).then((response) => {
       clearTimeout(timeoutId);
-      if (response.status < 500) {
+      if (response.status < 400) {
         fulfill(response);
       } else {
         reject(new Error(`HTTP error: ${response.status} ${response.statusText}`));
@@ -55,7 +55,8 @@ function fromNetwork(request, timeout) {
 
 self.addEventListener('fetch', (event) => {
   const requestURL = new URL(event.request.url);
-  
+  console.log("hi from service worker, I am trying to get", requestURL)
+
   if (requestURL.pathname.startsWith('/api/containers')) {
     event.respondWith(
       fromNetwork(event.request, timeout)
@@ -80,7 +81,7 @@ self.addEventListener('fetch', (event) => {
       fromNetwork(event.request, timeout)
         .catch((_) => {
           console.log(`Failed to load image`);
-          return fetch('/placeholder2.jpeg')
+          return fetch('placeholder2.jpeg')
             .then((response) => {
               return new Response(response.body, {
                 status: response.status,

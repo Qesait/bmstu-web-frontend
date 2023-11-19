@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { Link } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 
@@ -25,7 +26,7 @@ export const SmallCard: FC<IContairnerProps> = ({ uuid, marking, type, image_url
             <Card.Text>Груз: {cargo}</Card.Text>
             <Card.Text>Вес: {weight} кг</Card.Text>
         </Card.Body>
-        <a href={`${import.meta.env.BASE_URL}/containers/${uuid}`} className="btn btn-primary">Подробнее</a>
+        <Link to={`${import.meta.env.BASE_URL}/containers/${uuid}`} className="btn btn-primary">Подробнее</Link>
     </Card>
 )
 
