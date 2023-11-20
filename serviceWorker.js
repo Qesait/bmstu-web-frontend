@@ -42,7 +42,7 @@ function fromNetwork(request, timeout) {
     var timeoutId = setTimeout(reject, timeout);
     fetch(request).then((response) => {
       clearTimeout(timeoutId);
-      console.log(response.headers)
+      console.log(response.headers.get("Server"))
       if (response.status >= 400) {
         reject(new Error(`HTTP error: ${response.status} ${response.statusText}`));
       }
