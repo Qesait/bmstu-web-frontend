@@ -30,18 +30,16 @@ const AllContainers = () => {
     }, []);
 
     return (
-        <div className="p-2 px-3">
-            <div className='row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4'>
-                {containers && containers.length > 0 ? (
-                    containers.map((container) => (
-                        <div className='d-flex py-1 p-sm-1 p-md-2 justify-content-center' key={container.uuid}>
-                            <SmallCard  {...container} />
-                        </div>
-                    ))
-                ) : (
-                    <p>Loading containers...</p>
-                )}
-            </div>
+        <div className='row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4'>
+            {containers && containers.length > 0 ? (
+                containers.map((container) => (
+                    <div className='d-flex py-1 p-sm-2 p-md-2 justify-content-center' key={container.uuid}>
+                        <SmallCard  {...container} />
+                    </div>
+                ))
+            ) : (
+                <p>Loading containers...</p>
+            )}
         </div>
     )
 }

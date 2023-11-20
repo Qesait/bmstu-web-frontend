@@ -1,4 +1,3 @@
-import './App.css'
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { AllContainers } from './pages/AllContainers'
@@ -24,12 +23,14 @@ function App() {
   return (
     <>
       <NavigationBar />
-      <Routes>
-        <Route path={`${import.meta.env.BASE_URL}/`} element={<Navigate to={`${import.meta.env.BASE_URL}/containers`} />} />
-        <Route path={`${import.meta.env.BASE_URL}/containers`} element={<AllContainers />} />
-        <Route path={`${import.meta.env.BASE_URL}/containers/:container_id`} element={<ContainerInfo />} />
-        <Route path={`${import.meta.env.BASE_URL}/transportations`} element={<NotImplemented />} />
-      </Routes>
+      <div className='container-xxl mt-3 px-2 px-sm-3'>
+        <Routes>
+          <Route path={`${import.meta.env.BASE_URL}/`} element={<Navigate to={`${import.meta.env.BASE_URL}/containers`} />} />
+          <Route path={`${import.meta.env.BASE_URL}/containers`} element={<AllContainers />} />
+          <Route path={`${import.meta.env.BASE_URL}/containers/:container_id`} element={<ContainerInfo />} />
+          <Route path={`${import.meta.env.BASE_URL}/transportations`} element={<NotImplemented />} />
+        </Routes>
+      </div>
     </>
   )
 }
