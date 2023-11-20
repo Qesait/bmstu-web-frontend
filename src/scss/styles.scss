@@ -10,15 +10,7 @@ $theme-colors: map-merge($theme-colors, (
   "primary": $primary
 ));
 
-[data-bs-theme="dark"] {
-    --bs-primary: #{$primary};
-    --bs-primary-bg-subtle: #{$primary};
-    --bs-primary-bg-subtle-dark: #{$primary};
-    
-    .btn-primary {
-      --bs-btn-bg: #{$primary};
-    }
-  }
+$box-shadow: 0 0.5rem 1rem rgba(65, 51, 183, .25);;
 
 // Import all of Bootstrap's CSS
 @import "../node_modules/bootstrap/scss/bootstrap";
