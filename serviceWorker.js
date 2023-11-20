@@ -42,9 +42,8 @@ function fromNetwork(request, timeout) {
     var timeoutId = setTimeout(reject, timeout);
     fetch(request).then((response) => {
       clearTimeout(timeoutId);
-      if (response.status < 400) {
-        fulfill(response);
-      } else {
+      console.log(response.headers)
+      if (response.status >= 400) {
         reject(new Error(`HTTP error: ${response.status} ${response.statusText}`));
       }
       fulfill(response);
@@ -55,13 +54,16 @@ function fromNetwork(request, timeout) {
 
 self.addEventListener('fetch', (event) => {
   const requestURL = new URL(event.request.url);
-  console.log("hi from service worker, I am trying to get", requestURL)
 
   if (requestURL.pathname.startsWith('/api/containers')) {
     event.respondWith(
       fromNetwork(event.request, timeout)
         .catch((err) => {
-          console.log(`Error caught: ${err.message}`);
+          if (err != undefined) {
+            console.log(`Error caught: ${err.message}`);
+          } else {
+            console.log(`Unknown error while sending request`);
+          }
           const containerIdMatch = requestURL.pathname.match(/^\/api\/containers\/([^/]+)$/);
 
           if (containerIdMatch) {
@@ -79,8 +81,12 @@ self.addEventListener('fetch', (event) => {
   } else if (requestURL.pathname.startsWith('/images')) {
     event.respondWith(
       fromNetwork(event.request, timeout)
-        .catch((_) => {
-          console.log(`Failed to load image`);
+        .catch((err) => {
+          if (err != undefined) {
+            console.log(`Error caught: ${err.message}`);
+          } else {
+            console.log(`Unknown error while sending request`);
+          }
           return fetch('placeholder2.jpeg')
             .then((response) => {
               return new Response(response.body, {
