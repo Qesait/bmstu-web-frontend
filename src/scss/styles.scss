@@ -1,0 +1,24 @@
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/variables-dark";
+@import "../node_modules/bootstrap/scss/maps";
+@import "../node_modules/bootstrap/scss/mixins";
+@import "../node_modules/bootstrap/scss/utilities";
+
+$primary: $indigo;
+$theme-colors: map-merge($theme-colors, (
+  "primary": $primary
+));
+
+[data-bs-theme="dark"] {
+    --bs-primary: #{$primary};
+    --bs-primary-bg-subtle: #{$primary};
+    --bs-primary-bg-subtle-dark: #{$primary};
+    
+    .btn-primary {
+      --bs-btn-bg: #{$primary};
+    }
+  }
+
+// Import all of Bootstrap's CSS
+@import "../node_modules/bootstrap/scss/bootstrap";
