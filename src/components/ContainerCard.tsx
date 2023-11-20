@@ -16,7 +16,7 @@ export interface IContairnerProps {
 }
 
 export const SmallCard: FC<IContairnerProps> = ({ uuid, marking, type, image_url, cargo, weight }) => (
-    <Card className='d-flex px-0 shadow'>
+    <Card className='w-100 mx-auto px-0 shadow'>
         <div className="ratio ratio-16x9 overflow-hidden">
             <Card.Img variant='top' src={`http://${image_url}`} className='rounded object-fit-cover' />
         </div>
