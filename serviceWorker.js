@@ -43,7 +43,7 @@ function fromNetwork(request, timeout) {
     fetch(request).then((response) => {
       clearTimeout(timeoutId);
       console.log(response.headers.get("Server"))
-      if (response.status >= 400) {
+      if (response.status >= 500 || response.headers.get("Server") == "Github.com") {
         reject(new Error(`HTTP error: ${response.status} ${response.statusText}`));
       }
       fulfill(response);
