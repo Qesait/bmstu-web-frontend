@@ -7,7 +7,6 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': 'http://localhost:8080',
-      '/images': 'http://localhost:9000'
     }
   },
   base: "/bmstu-web-frontend",
