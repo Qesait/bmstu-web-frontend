@@ -10,8 +10,8 @@ function App() {
   useEffect(() => {
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", function () {
-        console.log(`${import.meta.env.BASE_URL}/serviceWorker.js`)
-        navigator.serviceWorker.register(`${import.meta.env.BASE_URL}/serviceWorker.js`)
+        console.log(`${import.meta.env.BASE_URL}serviceWorker.js`)
+        navigator.serviceWorker.register(`${import.meta.env.BASE_URL}serviceWorker.js`)
           .then(() => {
             console.log("service worker registered");
           })
@@ -25,10 +25,10 @@ function App() {
       <NavigationBar />
       <div className='container-xxl mt-3 px-2 px-sm-3'>
         <Routes>
-          <Route path={`${import.meta.env.BASE_URL}/`} element={<Navigate to={`${import.meta.env.BASE_URL}/containers`} />} />
-          <Route path={`${import.meta.env.BASE_URL}/containers`} element={<AllContainers />} />
-          <Route path={`${import.meta.env.BASE_URL}/containers/:container_id`} element={<ContainerInfo />} />
-          <Route path={`${import.meta.env.BASE_URL}/transportations`} element={<NotImplemented />} />
+          <Route path="/" element={<Navigate to="containers" />} />
+          <Route path="/containers" element={<AllContainers />} />
+          <Route path="/containers/:container_id" element={<ContainerInfo />} />
+          <Route path="/transportations" element={<NotImplemented />} />
         </Routes>
       </div>
     </>

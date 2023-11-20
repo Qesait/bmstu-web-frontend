@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://qesait.github.io/bmstu-web-frontend/bmstu-web-frontend/",
   "scripts": {
     "dev": "vite",
     "predeploy": "npm run build",

@@ -9,7 +9,7 @@ export default defineConfig({
       '/api': 'http://localhost:8080',
     }
   },
-  base: "/bmstu-web-frontend",
+  base: "/bmstu-web-frontend/",
   plugins: [react()],
   build: {
     manifest: true

@@ -26,7 +26,7 @@ export const SmallCard: FC<IContairnerProps> = ({ uuid, marking, type, image_url
             <Card.Text>Груз: {cargo}</Card.Text>
             <Card.Text>Вес: {weight} кг</Card.Text>
         </Card.Body>
-        <Link to={`${import.meta.env.BASE_URL}/containers/${uuid}`} className="btn btn-primary">Подробнее</Link>
+        <Link to={`/containers/${uuid}`} className="btn btn-primary">Подробнее</Link>
     </Card>
 )
 
