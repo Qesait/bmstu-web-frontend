@@ -8,14 +8,14 @@ import NavigationBar from './components/NavBar';
 import { useEffect } from 'react';
 
 function App() {
-
   useEffect(() => {
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", function () {
         console.log(`${import.meta.env.BASE_URL}/serviceWorker.js`)
-        navigator.serviceWorker
-          .register(`${import.meta.env.BASE_URL}/serviceWorker.js`)
-          .then(_ => console.log("service worker registered"))
+        navigator.serviceWorker.register(`${import.meta.env.BASE_URL}/serviceWorker.js`)
+          .then(() => {
+            console.log("service worker registered");
+          })
           .catch(err => console.log("service worker not registered", err))
       })
     }
