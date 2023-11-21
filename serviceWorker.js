@@ -86,7 +86,7 @@ self.addEventListener('fetch', (event) => {
           } else {
             console.log(`Unknown error while sending request`);
           }
-          return fetch('placeholder2.jpeg')
+          return fetch('placeholder3.jpg')
             .then((response) => {
               return new Response(response.body, {
                 status: response.status,
