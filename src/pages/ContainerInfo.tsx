@@ -4,8 +4,6 @@ import { BigCard, IContairnerProps } from '../components/ContainerCard';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
-import Button from 'react-bootstrap/Button';
-
 
 // TODO: handle 404
 const ContainerInfo: FC = () => {
@@ -32,13 +30,13 @@ const ContainerInfo: FC = () => {
         <>
             <Navbar>
                 <Nav>
-                <Link to="/containers" className="nav-link p-0 text-dark" data-bs-theme="dark">
-    Контейнеры
-  </Link>
-  <Nav.Item className='mx-1'>{">"}</Nav.Item>
-  <Nav.Item className="nav-link p-0 text-dark">
-    {`${container ? container.marking : ''}`}
-  </Nav.Item>
+                    <Link to="/containers" className="nav-link p-0 text-dark" data-bs-theme="dark">
+                        Контейнеры
+                    </Link>
+                    <Nav.Item className='mx-1'>{">"}</Nav.Item>
+                    <Nav.Item className="nav-link p-0 text-dark">
+                        {`${container ? container.marking : ''}`}
+                    </Nav.Item>
                 </Nav>
             </Navbar>
             {container ? (
