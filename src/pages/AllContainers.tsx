@@ -49,8 +49,6 @@ const AllContainers = () => {
     const [filteredContainers, setFilteredContainers] = useState<IContairnerProps[]>([]);
     const [_, setDraftTransportation] = useState('');
 
-    console.log("F", filteredContainers)
-
     useEffect(() => {
         fetch('/api/containers')
             .then(response => {
@@ -83,8 +81,7 @@ const AllContainers = () => {
                     ))
                 ) : (
                     <LoadAnimation />
-                )
-                }
+                )}
             </div>
         </>
     )

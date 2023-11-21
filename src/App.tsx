@@ -2,7 +2,8 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { AllContainers } from './pages/AllContainers'
 import { ContainerInfo } from './pages/ContainerInfo'
-import { NotImplemented } from './pages/NotImplemented'
+// import { NotImplemented } from './pages/NotImplemented'
+import { AllTransportations } from './pages/AllTransportations'
 import NavigationBar from './components/NavBar';
 import { useEffect } from 'react';
 
@@ -28,7 +29,7 @@ function App() {
           <Route path="/" element={<Navigate to="containers" />} />
           <Route path="/containers" element={<AllContainers />} />
           <Route path="/containers/:container_id" element={<ContainerInfo />} />
-          <Route path="/transportations" element={<NotImplemented />} />
+          <Route path="/transportations" element={<AllTransportations />} />
         </Routes>
       </div>
     </>
