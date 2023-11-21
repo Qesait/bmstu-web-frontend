@@ -1,16 +1,16 @@
 import { useEffect, useState, FC } from 'react';
-import { SmallCard, IContairnerProps } from '../components/ContainerCard';
+import { SmallCard, IContainerProps } from '../components/ContainerCard';
 import LoadAnimation from '../components/LoadAnimation';
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 type Response = {
     draft_transportation: string;
-    containers: IContairnerProps[];
+    containers: IContainerProps[];
 }
 
 interface ISearchProps {
-    containers: IContairnerProps[]
-    setFilteredContainers: React.Dispatch<React.SetStateAction<IContairnerProps[]>>
+    containers: IContainerProps[]
+    setFilteredContainers: React.Dispatch<React.SetStateAction<IContainerProps[]>>
 }
 
 const Search: FC<ISearchProps> = ({ containers, setFilteredContainers }) => {
@@ -45,8 +45,8 @@ const Search: FC<ISearchProps> = ({ containers, setFilteredContainers }) => {
 
 const AllContainers = () => {
     const [loaded, setLoaded] = useState<boolean>(false)
-    const [containers, setContainers] = useState<IContairnerProps[]>([]);
-    const [filteredContainers, setFilteredContainers] = useState<IContairnerProps[]>([]);
+    const [containers, setContainers] = useState<IContainerProps[]>([]);
+    const [filteredContainers, setFilteredContainers] = useState<IContainerProps[]>([]);
     const [_, setDraftTransportation] = useState('');
 
     useEffect(() => {

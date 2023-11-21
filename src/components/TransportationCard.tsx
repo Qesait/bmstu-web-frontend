@@ -27,7 +27,7 @@ function formatDateToString(date: Date | null): string {
     return `${day}.${month}.${year} ${hours}:${minutes}:${seconds}`;
 }
 
-export const SmallCard: FC<ITransportationProps> = ({ uuid, status, creation_date, formation_date, completion_date, transport }) => (
+export const TransportationCard: FC<ITransportationProps> = ({ uuid, status, creation_date, formation_date, completion_date, transport }) => (
     <Card className='w-100 mx-auto px-0 shadow text-center'>
         <Card.Body className='flex-grow-1'>
             <Card.Text>Статус: {status}</Card.Text>
@@ -36,6 +36,6 @@ export const SmallCard: FC<ITransportationProps> = ({ uuid, status, creation_dat
             {completion_date ? <Card.Text>Дата подтверждения: {formatDateToString(completion_date)}</Card.Text> : <></>}
             <Card.Text>Транспорт: {transport ? transport : "Неизвестен"}</Card.Text>
         </Card.Body>
-        <Link to={`/containers/${uuid}`} className="btn btn-primary">Подробнее</Link>
+        <Link to={`/transportations/${uuid}`} className="btn btn-primary">Подробнее</Link>
     </Card>
 )

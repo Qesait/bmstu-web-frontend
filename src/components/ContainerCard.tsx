@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 
-export interface IContairnerProps {
+export interface IContainerProps {
     uuid: string
     marking: string
     type: string
@@ -15,7 +15,7 @@ export interface IContairnerProps {
     weight: number
 }
 
-export const SmallCard: FC<IContairnerProps> = ({ uuid, marking, type, image_url, cargo, weight }) => (
+export const SmallCard: FC<IContainerProps> = ({ uuid, marking, type, image_url, cargo, weight }) => (
     <Card className='w-100 mx-auto px-0 shadow text-center'>
         <div className="ratio ratio-16x9 overflow-hidden">
             <Card.Img variant='top' src={`http://${image_url}`} className='rounded object-fit-cover' />
@@ -30,7 +30,7 @@ export const SmallCard: FC<IContairnerProps> = ({ uuid, marking, type, image_url
     </Card>
 )
 
-export const BigCard: FC<IContairnerProps> = ({ marking, type, length, height, width, image_url, cargo, weight }) => (
+export const BigCard: FC<IContainerProps> = ({ marking, type, length, height, width, image_url, cargo, weight }) => (
     <Card className='shadow text-center text-md-start'>
         <div className='row'>
             <div className='col-12 col-md-8 px-md-0overflow-hidden'>

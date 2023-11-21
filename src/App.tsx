@@ -4,6 +4,7 @@ import { AllContainers } from './pages/AllContainers'
 import { ContainerInfo } from './pages/ContainerInfo'
 // import { NotImplemented } from './pages/NotImplemented'
 import { AllTransportations } from './pages/AllTransportations'
+import { TransportationInfo } from './pages/TransportationInfo'
 import NavigationBar from './components/NavBar';
 import { useEffect } from 'react';
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/containers" element={<AllContainers />} />
           <Route path="/containers/:container_id" element={<ContainerInfo />} />
           <Route path="/transportations" element={<AllTransportations />} />
+          <Route path="/transportations/:transportation_id" element={<TransportationInfo />} />
         </Routes>
       </div>
     </>
