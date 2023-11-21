@@ -10,7 +10,7 @@ function NavigationBar() {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Item>
-                            <Link to="/containers" className="nav-link">Контейнеры</Link>
+                            <Link to="/containers" className="nav-link ps-0">Контейнеры</Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Link to="/transportations" className="nav-link">Перевозки</Link>

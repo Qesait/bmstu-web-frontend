@@ -1,5 +1,6 @@
 import { useEffect, useState, FC } from 'react';
 import { SmallCard, IContairnerProps } from '../components/ContainerCard';
+import LoadAnimation from '../components/LoadAnimation';
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 type Response = {
@@ -29,7 +30,7 @@ const Search: FC<ISearchProps> = ({ containers, setFilteredContainers }) => {
     }
     return (
         <Navbar>
-            <Form className="flex-grow-1">
+            <Form className="flex-grow-1 shadow shadow-sm">
                 <Form.Control
                     type="text"
                     placeholder="Поиск"
@@ -73,17 +74,22 @@ const AllContainers = () => {
     return (
         <>
             <Search {...{ containers, setFilteredContainers }} />
-            <div className='row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4'>
+            <div className='row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 px-1'>
                 {loaded ? (
                     filteredContainers.map((container) => (
                         <div className='d-flex py-1 p-sm-2 p-md-2 justify-content-center' key={container.uuid}>
                             <SmallCard  {...container} />
                         </div>
                     ))
-                ) : <p>Loading containers...</p>}
+                ) : (
+                    <LoadAnimation />
+                )
+                }
             </div>
         </>
     )
 }
+
+
 
 export { AllContainers }

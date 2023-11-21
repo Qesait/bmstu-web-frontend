@@ -4,6 +4,7 @@ import { BigCard, IContairnerProps } from '../components/ContainerCard';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
+import LoadAnimation from '../components/LoadAnimation';
 
 // TODO: handle 404
 const ContainerInfo: FC = () => {
@@ -43,7 +44,10 @@ const ContainerInfo: FC = () => {
                 <div>
                     <BigCard {...container} />
                 </div>
-            ) : (<p>Loading container...</p>)}
+            ) : (
+                <LoadAnimation />
+            )
+            }
         </ >
     )
 }
