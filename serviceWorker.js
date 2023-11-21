@@ -67,9 +67,17 @@ self.addEventListener('fetch', (event) => {
 
           if (containerIdMatch) {
             const containerId = containerIdMatch[1];
-            return new Response(JSON.stringify(containers[containerId]), {
-              headers: { 'Content-Type': 'application/json; charset=utf-8' },
-            });
+            if (containers.hasOwnProperty(containerId)) {
+              return new Response(JSON.stringify(containers[containerId]), {
+                headers: { 'Content-Type': 'application/json; charset=utf-8' },
+              });
+            } else {
+              // Handle the case where containerId is not found
+              return new Response(JSON.stringify({ error: 'Container not found' }), {
+                headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                status: 404, // Not Found status code
+              });
+            }
           } else {
             return new Response(JSON.stringify({ draft_transportation, containers: Object.values(containers) }), {
               headers: { 'Content-Type': 'application/json; charset=utf-8' },
