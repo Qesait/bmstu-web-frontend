@@ -6,14 +6,15 @@ import { Link } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import LoadAnimation from '../components/LoadAnimation';
 
-// TODO: handle 404
 const ContainerInfo: FC = () => {
     let { container_id } = useParams()
     const [container, setContainer] = useState<IContairnerProps>()
+    const [loaded, setLoaded] = useState<boolean>(false)
 
     useEffect(() => {
         fetch(`/api/containers/${container_id}`)
             .then(response => {
+                setLoaded(true)
                 if (!response.ok) {
                     throw new Error(response.statusText)
                 }
@@ -36,14 +37,16 @@ const ContainerInfo: FC = () => {
                     </Link>
                     <Nav.Item className='mx-1'>{">"}</Nav.Item>
                     <Nav.Item className="nav-link p-0 text-dark">
-                        {`${container ? container.marking : ''}`}
+                        {`${container ? container.marking : 'неизвестно'}`}
                     </Nav.Item>
                 </Nav>
             </Navbar>
-            {container ? (
-                <div>
+            {loaded ? (
+                container ? (
                     <BigCard {...container} />
-                </div>
+                ) : (
+                    <h4 className='text-center'>Такого контейнера не существует</h4>
+                )
             ) : (
                 <LoadAnimation />
             )
