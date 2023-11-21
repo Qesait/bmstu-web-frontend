@@ -23,7 +23,7 @@ function App() {
   return (
     <>
       <NavigationBar />
-      <div className='container-xxl mt-3 px-2 px-sm-3'>
+      <div className='container-xxl px-2 px-sm-3'>
         <Routes>
           <Route path="/" element={<Navigate to="containers" />} />
           <Route path="/containers" element={<AllContainers />} />
