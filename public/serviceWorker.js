@@ -54,7 +54,7 @@ self.addEventListener('fetch', (event) => {
 
           if (transportationIdMatch) {
             const transportationId = transportationIdMatch[1];
-            if (transportations.hasOwnProperty(tranportationId)) {
+            if (transportations.hasOwnProperty(transportationId)) {
               return new Response(JSON.stringify(transportations[transportationId]), {
                 headers: { 'Content-Type': 'application/json; charset=utf-8' },
               });

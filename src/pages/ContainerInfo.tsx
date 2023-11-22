@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { BigCard, IContainerProps } from '../components/ContainerCard';
+import { BigCCard, IContainerProps } from '../components/ContainerCard';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
@@ -43,7 +43,7 @@ const ContainerInfo: FC = () => {
             </Navbar>
             {loaded ? (
                 container ? (
-                    <BigCard {...container} />
+                    <BigCCard {...container} />
                 ) : (
                     <h4 className='text-center'>Такого контейнера не существует</h4>
                 )

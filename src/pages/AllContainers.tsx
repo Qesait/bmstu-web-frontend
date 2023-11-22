@@ -1,5 +1,5 @@
 import { useEffect, useState, FC } from 'react';
-import { SmallCard, IContainerProps } from '../components/ContainerCard';
+import { SmallCCard, IContainerProps } from '../components/ContainerCard';
 import LoadAnimation from '../components/LoadAnimation';
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
@@ -76,7 +76,7 @@ const AllContainers = () => {
                 {loaded ? (
                     filteredContainers.map((container) => (
                         <div className='d-flex py-1 p-sm-2 p-md-2 justify-content-center' key={container.uuid}>
-                            <SmallCard  {...container} />
+                            <SmallCCard  {...container} />
                         </div>
                     ))
                 ) : (

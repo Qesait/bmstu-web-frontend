@@ -15,7 +15,7 @@ export interface IContainerProps {
     weight: number
 }
 
-export const SmallCard: FC<IContainerProps> = ({ uuid, marking, type, image_url, cargo, weight }) => (
+export const SmallCCard: FC<IContainerProps> = ({ uuid, marking, type, image_url, cargo, weight }) => (
     <Card className='w-100 mx-auto px-0 shadow text-center'>
         <div className="ratio ratio-16x9 overflow-hidden">
             <Card.Img variant='top' src={`http://${image_url}`} className='rounded object-fit-cover' />
@@ -30,10 +30,10 @@ export const SmallCard: FC<IContainerProps> = ({ uuid, marking, type, image_url,
     </Card>
 )
 
-export const BigCard: FC<IContainerProps> = ({ marking, type, length, height, width, image_url, cargo, weight }) => (
+export const BigCCard: FC<IContainerProps> = ({ marking, type, length, height, width, image_url, cargo, weight }) => (
     <Card className='shadow text-center text-md-start'>
         <div className='row'>
-            <div className='col-12 col-md-8 px-md-0overflow-hidden'>
+            <div className='col-12 col-md-8 px-md-0 overflow-hidden'>
                 <Card.Img src={`http://${image_url}`} />
             </div>
             <Card.Body className='col-12 col-md-4 ps-md-0'>

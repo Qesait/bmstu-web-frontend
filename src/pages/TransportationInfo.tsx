@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { SmallCard, IContainerProps } from '../components/ContainerCard';
-import { TransportationCard, ITransportationProps } from '../components/TransportationCard';
+import { IContainerProps } from '../components/ContainerCard';
+import { BigTCard, ITransportationProps } from '../components/TransportationCard';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
@@ -56,17 +56,17 @@ const TransportationInfo: FC = () => {
                     </Nav.Item>
                 </Nav>
             </Navbar>
-            {/* {loaded ? (
-                container ? (
-                    <BigCard {...container} />
+            {loaded ? (
+                transportation ? (
+                    <BigTCard transportation={transportation} containers={containers} />
                 ) : (
-                    <h4 className='text-center'>Такого контейнера не существует</h4>
+                    <h4 className='text-center'>Такой перевозки не существует</h4>
                 )
             ) : (
                 <LoadAnimation />
-                )
-            } */}
-            <LoadAnimation />
+            )
+            }
+            {/* <LoadAnimation /> */}
         </ >
     )
 }

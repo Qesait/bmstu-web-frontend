@@ -1,6 +1,6 @@
 // import { useEffect, useState, FC } from 'react';
 import { useEffect, useState } from 'react';
-import { TransportationCard, ITransportationProps } from '../components/TransportationCard';
+import { SmallTCard, ITransportationProps } from '../components/TransportationCard';
 import LoadAnimation from '../components/LoadAnimation';
 // import Navbar from 'react-bootstrap/Navbar';
 // import Form from 'react-bootstrap/Form';
@@ -84,7 +84,7 @@ const AllTransportations = () => {
                 {loaded ? (
                     filteredTransportations.map((transportation) => (
                         <div className='d-flex py-1 p-sm-2 p-md-2 justify-content-center' key={transportation.uuid}>
-                            <TransportationCard  {...transportation} />
+                            <SmallTCard  {...transportation} />
                         </div>
                     ))
                 ) : (
