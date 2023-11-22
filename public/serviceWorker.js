@@ -15,6 +15,10 @@ function fromNetwork(request, timeout) {
   });
 }
 
+self.addEventListener('activate', (event) => {
+  event.waitUntil(clients.claim());
+});
+
 
 self.addEventListener('fetch', (event) => {
   const requestURL = new URL(event.request.url);
@@ -132,6 +136,28 @@ const containers = {
     "image_url": "localhost:9000/images/07d0cbdc-8e0f-4308-a7aa-11976ee6e5b2.jpg",
     "cargo": "Телевизоры",
     "weight": 19000
+  },
+  "87f1e44c-2d5f-4611-ae7c-4b56ba690d05": {
+    "uuid": "87f1e44c-2d5f-4611-ae7c-4b56ba690d05",
+    "marking": "XYZU9876543",
+    "type": "20 футовый контейнер увеличенной высоты",
+    "length": 5905,
+    "height": 2596,
+    "width": 2350,
+    "image_url": "localhost:9000/images/87f1e44c-2d5f-4611-ae7c-4b56ba690d05.jpg",
+    "cargo": "Медицинское оборудование",
+    "weight": 8000
+  },
+  "f4c76108-9cd1-42e8-81d5-803eaed7866a": {
+    "uuid": "f4c76108-9cd1-42e8-81d5-803eaed7866a",
+    "marking": "ODZU5836243",
+    "type": "Стандартный 40-ка футовый контейнер",
+    "length": 12045,
+    "height": 2381,
+    "width": 2350,
+    "image_url": "localhost:9000/images/f4c76108-9cd1-42e8-81d5-803eaed7866a.jpg",
+    "cargo": "Одежда",
+    "weight": 16000
   }
 }
 const transportations = {
@@ -207,7 +233,7 @@ const transportations = {
       },
       {
         "uuid": "f4c76108-9cd1-42e8-81d5-803eaed7866a",
-        "marking": "XYZU9876543",
+        "marking": "ODZU5836243",
         "type": "Стандартный 40-ка футовый контейнер",
         "length": 12045,
         "height": 2381,
