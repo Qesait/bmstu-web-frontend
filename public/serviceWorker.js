@@ -43,7 +43,15 @@ self.addEventListener('fetch', (event) => {
               });
             }
           } else {
-            return new Response(JSON.stringify({ draft_transportation, containers: Object.values(containers) }), {
+            filteredContainers = Object.values(containers)
+            let type = requestURL.searchParams.get("type")
+            if (type) {
+              type = type.toLowerCase()
+              filteredContainers = filteredContainers.filter(
+                (container) => container.type.toLowerCase().includes(type)
+              )
+            }
+            return new Response(JSON.stringify({ draft_transportation, containers: filteredContainers }), {
               headers: { 'Content-Type': 'application/json; charset=utf-8' },
             });
           }

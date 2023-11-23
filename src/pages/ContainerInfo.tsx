@@ -45,7 +45,7 @@ const ContainerInfo: FC = () => {
                 container ? (
                     <BigCCard {...container} />
                 ) : (
-                    <h4 className='text-center'>Такого контейнера не существует</h4>
+                    <h3 className='text-center'>Такого контейнера не существует</h3>
                 )
             ) : (
                 <LoadAnimation />
