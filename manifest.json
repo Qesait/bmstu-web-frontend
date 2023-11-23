@@ -1,10 +1,10 @@
 {
     "name": "Container logistics",
     "short_name": "Logistics",
-    "start_url": "/",
+    "start_url": "/bmstu-web-frontend/",
     "display": "standalone",
-    "background_color": "#fdfdfd",
-    "theme_color": "#db4938",
+    "background_color": "#FFFFFF",
+    "theme_color": "#520dc2",
     "orientation": "portrait-primary",
     "icons": [
         {
