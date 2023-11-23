@@ -33,7 +33,7 @@ export const SmallCCard: FC<IContainerProps> = ({ uuid, marking, type, image_url
 export const BigCCard: FC<IContainerProps> = ({ marking, type, length, height, width, image_url, cargo, weight }) => (
     <Card className='shadow text-center text-md-start'>
         <div className='row'>
-            <div className='col-12 col-md-8 px-md-0 overflow-hidden'>
+            <div className='col-12 col-md-8 overflow-hidden'>
                 <Card.Img src={`http://${image_url}`} />
             </div>
             <Card.Body className='col-12 col-md-4 ps-md-0'>
