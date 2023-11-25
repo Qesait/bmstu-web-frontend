@@ -10,8 +10,5 @@ export default defineConfig({
     }
   },
   base: "/bmstu-web-frontend/",
-  plugins: [react()],
-  build: {
-    manifest: true
-  }
+  plugins: [react()]
 })

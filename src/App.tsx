@@ -13,7 +13,7 @@ function App() {
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", function () {
         console.log(`${import.meta.env.BASE_URL}serviceWorker.js`)
-        navigator.serviceWorker.register(`${import.meta.env.BASE_URL}serviceWorker.js`, { updateViaCache: 'none' })
+        navigator.serviceWorker.register(`${import.meta.env.BASE_URL}serviceWorker.js`, { scope: `${import.meta.env.BASE_URL}` })
           .then(() => {
             navigator.serviceWorker.ready.then(() => {
               console.log("service worker is ready");

@@ -1,19 +1,19 @@
 {
     "name": "Container logistics",
     "short_name": "Logistics",
-    "start_url": "/",
+    "start_url": "/bmstu-web-frontend/",
     "display": "standalone",
-    "background_color": "#fdfdfd",
-    "theme_color": "#db4938",
+    "background_color": "#FFFFFF",
+    "theme_color": "#520dc2",
     "orientation": "portrait-primary",
     "icons": [
         {
-            "src": "/logo192.png",
+            "src": "/bmstu-web-frontend/logo192.png",
             "type": "image/png",
             "sizes": "192x192"
         },
         {
-            "src": "/logo512.png",
+            "src": "/bmstu-web-frontend/logo512.png",
             "type": "image/png",
             "sizes": "512x512"
         }
