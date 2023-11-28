@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { Link } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
+import CardImage from './CardImage';
 
 export interface IContainerProps {
     uuid: string
@@ -15,10 +16,16 @@ export interface IContainerProps {
     weight: number
 }
 
+// const setPlaceholder = (event: any) => {
+//     event.target.src = '/placeholder3.jpg';
+// };
+
 export const SmallCCard: FC<IContainerProps> = ({ uuid, marking, type, image_url, cargo, weight }) => (
+
     <Card className='w-100 mx-auto px-0 shadow text-center'>
         <div className="ratio ratio-16x9 overflow-hidden">
-            <Card.Img variant='top' src={`http://${image_url}`} className='rounded object-fit-cover' />
+            <CardImage url={`http://${image_url}`} className='rounded object-fit-cover'/>
+            {/* <Card.Img src={`http://${image_url}`} alt='картинка контейнера' onError={setPlaceholder} className='rounded object-fit-cover' /> */}
         </div>
         <Card.Body className='flex-grow-1'>
             <Card.Title>{marking}</Card.Title>
@@ -34,7 +41,8 @@ export const BigCCard: FC<IContainerProps> = ({ marking, type, length, height, w
     <Card className='shadow text-center text-md-start'>
         <div className='row'>
             <div className='col-12 col-md-8 overflow-hidden'>
-                <Card.Img src={`http://${image_url}`} />
+                {/* <Card.Img src={`http://${image_url}`} onError={setPlaceholder}/> */}
+                <CardImage url={`http://${image_url}`}/>
             </div>
             <Card.Body className='col-12 col-md-4 ps-md-0'>
                 <ListGroup variant="flush">

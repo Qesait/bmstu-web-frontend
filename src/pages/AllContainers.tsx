@@ -4,11 +4,7 @@ import LoadAnimation from '../components/LoadAnimation';
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-
-type Response = {
-    draft_transportation: string;
-    containers: IContainerProps[];
-}
+import { getAllContainers } from '../requests/GetAllContainers'
 
 interface ISearchProps {
     setContainers: React.Dispatch<React.SetStateAction<IContainerProps[]>>
@@ -19,8 +15,7 @@ const Search: FC<ISearchProps> = ({ setContainers }) => {
 
     const handleSearch = (event: React.FormEvent<any>) => {
         event.preventDefault();
-        console.log(searchText);
-        getContainers(searchText)
+        getAllContainers(searchText)
             .then(data => {
                 console.log(data)
                 setContainers(data.containers)
@@ -48,27 +43,13 @@ const Search: FC<ISearchProps> = ({ setContainers }) => {
         </Navbar>)
 }
 
-async function getContainers(filter?: string): Promise<Response> {
-    let api = '/api/containers'
-    if (filter !== undefined) {
-        api += `?type=${filter}`
-    }
-    return fetch(api)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(response.statusText)
-            }
-            return response.json() as Promise<Response>
-        })
-}
-
 const AllContainers = () => {
     const [loaded, setLoaded] = useState<boolean>(false)
     const [containers, setContainers] = useState<IContainerProps[]>([]);
-    const [_, setDraftTransportation] = useState('');
+    const [_, setDraftTransportation] = useState<string | null>(null);
 
     useEffect(() => {
-        getContainers()
+        getAllContainers()
             .then(data => {
                 console.log(data)
                 setDraftTransportation(data.draft_transportation)
@@ -97,7 +78,5 @@ const AllContainers = () => {
         </>
     )
 }
-
-
 
 export { AllContainers }

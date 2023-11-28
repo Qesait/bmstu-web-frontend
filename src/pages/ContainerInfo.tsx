@@ -5,6 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import LoadAnimation from '../components/LoadAnimation';
+import { getContainer } from '../requests/GetContainer'
 
 const ContainerInfo: FC = () => {
     let { container_id } = useParams()
@@ -12,16 +13,10 @@ const ContainerInfo: FC = () => {
     const [loaded, setLoaded] = useState<boolean>(false)
 
     useEffect(() => {
-        fetch(`/api/containers/${container_id}`)
-            .then(response => {
-                setLoaded(true)
-                if (!response.ok) {
-                    throw new Error(response.statusText)
-                }
-                return response.json() as Promise<IContainerProps>
-            })
+        getContainer(container_id)
             .then(data => {
                 setContainer(data)
+                setLoaded(true)
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
