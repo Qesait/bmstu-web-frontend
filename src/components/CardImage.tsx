@@ -7,13 +7,21 @@ interface CardImageProps {
 }
 
 const CardImage = ({ url, className, ...props }: CardImageProps) => {
-    const [src, setSrc] = useState('/placeholder.jpg');
+    const [src, setSrc] = useState(`${import.meta.env.BASE_URL}placeholder.jpg`);
 
 
     useEffect(() => {
         fetch(url)
-            .then(response => response.blob())
+            .then(response => {
+                if (response.status >= 500 || response.headers.get("Server") == "GitHub.com") {
+                    throw new Error(`Can't load image from ${url}`);
+                }
+                return response.blob();
+            })
             .then(blob => setSrc(URL.createObjectURL(blob)))
+            .catch(error => {
+                console.error(error.message);
+            });
     }, []);
 
     const handleError = () => {

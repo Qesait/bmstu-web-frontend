@@ -16,7 +16,6 @@ export async function getContainer(containerId?: string): Promise<IContainerProp
             return response.json() as Promise<IContainerProps | undefined>
         })
         .catch(_ => {
-            console.log("hi")
             return containers.get(containerId)
         })
 }
