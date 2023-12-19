@@ -24,8 +24,7 @@ export const SmallCCard: FC<IContainerProps> = ({ uuid, marking, type, image_url
 
     <Card className='w-100 mx-auto px-0 shadow text-center'>
         <div className="ratio ratio-16x9 overflow-hidden">
-            <CardImage url={`http://${image_url}`} className='rounded object-fit-cover'/>
-            {/* <Card.Img src={`http://${image_url}`} alt='картинка контейнера' onError={setPlaceholder} className='rounded object-fit-cover' /> */}
+            <CardImage url={image_url} className='rounded object-fit-cover'/>
         </div>
         <Card.Body className='flex-grow-1'>
             <Card.Title>{marking}</Card.Title>
@@ -42,7 +41,7 @@ export const BigCCard: FC<IContainerProps> = ({ marking, type, length, height, w
         <div className='row'>
             <div className='col-12 col-md-8 overflow-hidden'>
                 {/* <Card.Img src={`http://${image_url}`} onError={setPlaceholder}/> */}
-                <CardImage url={`http://${image_url}`}/>
+                <CardImage url={image_url}/>
             </div>
             <Card.Body className='col-12 col-md-4 ps-md-0'>
                 <ListGroup variant="flush">
