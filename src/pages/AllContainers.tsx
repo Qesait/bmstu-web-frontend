@@ -17,7 +17,7 @@ const Search: FC<ISearchProps> = ({ setContainers }) => {
         event.preventDefault();
         getAllContainers(searchText)
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 setContainers(data.containers)
             })
     }
@@ -51,7 +51,7 @@ const AllContainers = () => {
     useEffect(() => {
         getAllContainers()
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 setDraftTransportation(data.draft_transportation)
                 setContainers(data.containers)
                 setLoaded(true)
