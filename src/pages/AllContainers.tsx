@@ -41,7 +41,7 @@ const AllContainers = () => {
                     <Form.Control
                         type="text"
                         placeholder="Поиск"
-                        className="form-control-sm flex-grow-1 shadow shadow-sm"
+                        className="form-control-sm flex-grow-1 shadow"
                         data-bs-theme="dark"
                         value={searchText}
                         // onChange={(e) => setSearchText(e.target.value)}
@@ -51,7 +51,7 @@ const AllContainers = () => {
                         variant="primary"
                         size="sm"
                         type="submit"
-                        className="shadow">
+                        className="shadow-lg">
                         Поиск
                     </Button>
                 </Form>
