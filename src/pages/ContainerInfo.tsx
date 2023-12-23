@@ -5,7 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import LoadAnimation from '../components/LoadAnimation';
-import { getContainer } from '../requests/GetContainer'
+import { getContainer } from '../api'
 
 const ContainerInfo: FC = () => {
     let { container_id } = useParams()

@@ -4,7 +4,7 @@ import LoadAnimation from '../components/LoadAnimation';
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { getAllContainers } from '../requests/GetAllContainers'
+import { getAllContainers } from '../api'
 import { AppDispatch, RootState } from "../store";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilter } from "../store/containerFilterSlice"
