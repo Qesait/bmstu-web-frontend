@@ -71,4 +71,4 @@ const AllContainers = () => {
     )
 }
 
-export { AllContainers }
+export default AllContainers

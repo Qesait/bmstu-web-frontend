@@ -4,4 +4,4 @@ const AllTransportations = () => {
     )
 }
 
-export { AllTransportations }
+export default AllTransportations

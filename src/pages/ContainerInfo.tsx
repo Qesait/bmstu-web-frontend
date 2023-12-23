@@ -50,4 +50,4 @@ const ContainerInfo: FC = () => {
     )
 }
 
-export { ContainerInfo }
+export default ContainerInfo
