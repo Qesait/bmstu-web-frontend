@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import containerFilterReducer from "./containerFilterSlice";
-import authorizationReducer from "./authorizationSlice";
+import containerReducer from "./containerSlice";
+import transportationReducer from "./transportationSlice";
 
 export const store = configureStore({
     reducer: {
-        containerFilter: containerFilterReducer,
-        authorization: authorizationReducer,
+        container: containerReducer,
+        transportation: transportationReducer,
     },
 });
 

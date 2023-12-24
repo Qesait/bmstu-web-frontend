@@ -19,7 +19,9 @@ const Registration: FC = () => {
             .then((response: AxiosResponse) => {
                 console.log('Response:', response.data);
                 dispatch(setRole(response.data.role));
-                localStorage.setItem('jwt', response.data.access_token);
+                localStorage.setItem('access_token', response.data.access_token);
+                localStorage.setItem('role', response.data.role);
+                localStorage.setItem('login', response.data.login);
             })
             .catch((error: AxiosError) => {
                 console.error('Error:', error.message);

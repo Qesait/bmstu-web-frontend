@@ -1,7 +1,7 @@
-import { IContainerProps } from '../components/ContainerCard';
+import { IContainer } from '../models';
 
 export const draft_transportation = null
-export let containers = new Map<string, IContainerProps>([
+export let containers = new Map<string, IContainer>([
     ["a20163ce-7be5-46ec-a50f-a313476b2bd1",
         {
             uuid: "a20163ce-7be5-46ec-a50f-a313476b2bd1",

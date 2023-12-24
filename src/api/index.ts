@@ -1,5 +1,5 @@
 import { containers, draft_transportation } from './MockData';
-import { IContainerProps } from '../components/ContainerCard';
+import { IContainer } from '../models';
 import axios from 'axios';
 
 
@@ -12,7 +12,7 @@ export const axiosImage = axios.create({ baseURL: `http://${ip}:${port}/images/`
 
 export type Response = {
     draft_transportation: string | null;
-    containers: IContainerProps[];
+    containers: IContainer[];
 }
 
 export async function getAllContainers(filter?: string): Promise<Response> {
@@ -36,12 +36,12 @@ function fromMock(filter?: string): Response {
     return { draft_transportation, containers: filteredContainers }
 }
 
-export async function getContainer(containerId?: string): Promise<IContainerProps | undefined> {
+export async function getContainer(containerId?: string): Promise<IContainer | undefined> {
     if (containerId === undefined) {
         return undefined
     }
     let url = 'containers/' + containerId
-    return axiosAPI.get<IContainerProps>(url)
+    return axiosAPI.get<IContainer>(url)
         .then(response => response.data)
         .catch(_ => containers.get(containerId))
 }
