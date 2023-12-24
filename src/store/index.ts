@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import containerFilterReducer from "./containerFilterSlice";
+import authorizationReducer from "./authorizationSlice";
 
 export const store = configureStore({
     reducer: {
         containerFilter: containerFilterReducer,
+        authorization: authorizationReducer,
     },
 });
 
