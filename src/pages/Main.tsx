@@ -19,7 +19,7 @@ const MenuButton: FC<IButtonProps> = ({ path, text }) => (
 
 const Main = () => {
     return (
-        <Container fluid="sm" className='d-flex align-items-center justify-content-center vh-100'>
+        <Container fluid="sm" className='d-flex flex-column flex-grow-1 align-items-center justify-content-center'>
             <Col className='col-10 col-sm-7 col-md-6 col-lg-5'>
                 <MenuButton path="/registration" text="Регистрация" />
                 <MenuButton path="/authorization" text="Авторизация" />

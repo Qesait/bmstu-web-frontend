@@ -13,7 +13,7 @@ const Authorization: FC = () => {
     };
 
     return (
-        <Container fluid="sm" className='d-flex align-items-center justify-content-center vh-100'>
+        <Container fluid="sm" className='d-flex flex-column flex-grow-1 align-items-center justify-content-center'>
             <Form onSubmit={handleRegistration} className='d-flex flex-column align-items-center'>
                 <h2>Авторизация</h2>
 
