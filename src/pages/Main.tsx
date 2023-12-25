@@ -1,8 +1,12 @@
+import { FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
-import { FC } from 'react';
 import Container from 'react-bootstrap/Container';
+import { useDispatch } from "react-redux";
+
+import { AppDispatch } from "../store";
+import { clearHistory } from "../store/historySlice"
 
 interface IButtonProps {
     path: string;
@@ -18,6 +22,12 @@ const MenuButton: FC<IButtonProps> = ({ path, text }) => (
 );
 
 const Main = () => {
+    const dispatch = useDispatch<AppDispatch>();
+
+    useEffect(() => {
+        dispatch(clearHistory())
+    }, [dispatch]);
+
     return (
         <Container fluid="sm" className='d-flex flex-column flex-grow-1 align-items-center justify-content-center'>
             <Col className='col-10 col-sm-7 col-md-6 col-lg-5'>

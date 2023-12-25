@@ -1,20 +1,26 @@
 import { useEffect } from 'react';
-import { SmallCCard } from '../components/ContainerCard';
-import LoadAnimation from '../components/LoadAnimation';
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { getAllContainers } from '../api'
-import { AppDispatch, RootState } from "../store";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from 'react-router-dom';
+
+import { getAllContainers } from '../api'
+
+import { AppDispatch, RootState } from "../store";
 import { setFilter, setContainers } from "../store/containerSlice"
+import { clearHistory, addToHistory } from "../store/historySlice"
 import { setDraft } from '../store/transportationSlice';
+
+import { SmallCCard } from '../components/ContainerCard';
+import LoadAnimation from '../components/LoadAnimation';
 
 const AllContainers = () => {
     const searchText = useSelector((state: RootState) => state.container.searchText);
     const containers = useSelector((state: RootState) => state.container.containers);
     const _ = useSelector((state: RootState) => state.transportation.draft);
     const dispatch = useDispatch<AppDispatch>();
+    const location = useLocation().pathname;
 
     const getContainers = () =>
         getAllContainers(searchText)
@@ -33,6 +39,8 @@ const AllContainers = () => {
     }
 
     useEffect(() => {
+        dispatch(clearHistory())
+        dispatch(addToHistory({ path: location, name: "Контейнеры" }))
         getContainers();
     }, [dispatch]);
 

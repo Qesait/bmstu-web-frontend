@@ -1,19 +1,22 @@
-import { AppDispatch, RootState } from "../store";
 import { useEffect, forwardRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { axiosAPI } from "../api";
-import LoadAnimation from '../components/LoadAnimation';
-import { setTransportations, setStatusFilter, setDateStart, setDateEnd } from "../store/transportationSlice";
-import { ITransportation } from "../models";
 import Table from 'react-bootstrap/Table';
 import { format } from 'date-fns';
 import DatePicker from 'react-datepicker';
-import AuthCheck, { CUSTOMER } from '../components/AuthCheck'
+import { useLocation } from 'react-router-dom';
 
-import "react-datepicker/dist/react-datepicker.css";
+import { axiosAPI } from "../api";
+import { ITransportation } from "../models";
+
+import { AppDispatch, RootState } from "../store";
+import { setTransportations, setStatusFilter, setDateStart, setDateEnd } from "../store/transportationSlice";
+import { clearHistory, addToHistory } from "../store/historySlice";
+
+import LoadAnimation from '../components/LoadAnimation';
+import AuthCheck, { CUSTOMER } from '../components/AuthCheck'
 
 interface ApiResponse {
     transportations: ITransportation[]
@@ -25,6 +28,7 @@ const AllTransportations = () => {
     const dateStart = useSelector((state: RootState) => state.transportation.formationDateStart);
     const dateEnd = useSelector((state: RootState) => state.transportation.formationDateEnd);
     const dispatch = useDispatch<AppDispatch>();
+    const location = useLocation().pathname;
 
     const getTransportations = () => {
         let accessToken = localStorage.getItem('access_token');
@@ -59,6 +63,8 @@ const AllTransportations = () => {
     }
 
     useEffect(() => {
+        dispatch(clearHistory())
+        dispatch(addToHistory({ path: location, name: "Перевозки" }))
         getTransportations();
     }, [dispatch]);
 
