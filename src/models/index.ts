@@ -14,10 +14,10 @@ export interface ITransportation {
     uuid: string
     status: string
     creation_date: string
-    formation_date: string
-    completion_date: string
-    moderator: string
+    formation_date: string | null
+    completion_date: string | null
+    moderator: string | null
     customer: string
-    transport: string
-    delivery_status: string
+    transport: string | null
+    delivery_status: string | null
 }

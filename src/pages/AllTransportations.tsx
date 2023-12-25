@@ -1,12 +1,9 @@
-import { useEffect, forwardRef } from 'react';
+import { useEffect, forwardRef, ButtonHTMLAttributes } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import Navbar from 'react-bootstrap/Navbar';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Table from 'react-bootstrap/Table';
+import { useLocation, Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import DatePicker from 'react-datepicker';
-import { useLocation } from 'react-router-dom';
+import { Navbar, Form, Button, Table, Col, InputGroup } from 'react-bootstrap';
 
 import { axiosAPI } from "../api";
 import { ITransportation } from "../models";
@@ -20,6 +17,11 @@ import AuthCheck, { CUSTOMER } from '../components/AuthCheck'
 
 interface ApiResponse {
     transportations: ITransportation[]
+}
+
+interface CustomInputProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+    value?: string;
+    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const AllTransportations = () => {
@@ -68,16 +70,16 @@ const AllTransportations = () => {
         getTransportations();
     }, [dispatch]);
 
-    const CustomInput = forwardRef(({ value, onClick }, ref) => (
+    const CustomInput = forwardRef<HTMLButtonElement, CustomInputProps>((props, ref) => (
         <Button
             variant="outline-dark"
-            onClick={onClick}
             ref={ref}
             size="sm"
             className="text-nowrap shadow-sm"
             style={{ paddingRight: '1.5rem', minWidth: '137px' }}
+            {...props}
         >
-            {value ? value : "Введите дату"}
+            {props.value ? props.value : "Введите дату"}
         </Button>
     ));
 
@@ -85,18 +87,19 @@ const AllTransportations = () => {
         <AuthCheck allowedRole={CUSTOMER}>
             <Navbar>
                 <Form className="d-flex flex-row align-items-stretch flex-grow-1 gap-2" onSubmit={handleSearch}>
-                    <Form.Label className="m-0">Статус:</Form.Label>
-                    <Form.Select
-                        defaultValue={statusFilter}
-                        onChange={(status) => dispatch(setStatusFilter(status.target.value))}
-                        className="shadow-sm"
-                        size="sm"
-                    >
-                        <option value="">Любой</option>
-                        <option value="сформирована">Сформирована</option>
-                        <option value="завершёна">Завершена</option>
-                        <option value="отклонёна">Отклонена</option>
-                    </Form.Select>
+                    <InputGroup size='sm'>
+                        <InputGroup.Text >Статус</InputGroup.Text>
+                        <Form.Select
+                            defaultValue={statusFilter}
+                            onChange={(status) => dispatch(setStatusFilter(status.target.value))}
+                            className="shadow-sm"
+                        >
+                            <option value="">Любой</option>
+                            <option value="сформирована">Сформирована</option>
+                            <option value="завершёна">Завершена</option>
+                            <option value="отклонёна">Отклонена</option>
+                        </Form.Select>
+                    </InputGroup>
                     <DatePicker
                         selected={dateStart ? new Date(dateStart) : null}
                         onChange={(date: Date) => dispatch(setDateStart(date))}
@@ -132,29 +135,44 @@ const AllTransportations = () => {
                 <Table bordered hover>
                     <thead>
                         <tr>
-                            <th>Статус</th>
-                            <th>Дата создания</th>
-                            <th>Дата формирования</th>
-                            <th>Дата завершения</th>
-                            <th>Транспорт</th>
+                            <th className='text-center'>Статус</th>
+                            <th className='text-center'>Дата создания</th>
+                            <th className='text-center'>Дата формирования</th>
+                            <th className='text-center'>Дата завершения</th>
+                            <th className='text-center'>Транспорт</th>
+                            <th className='text-center'></th>
                         </tr>
                     </thead>
                     <tbody>
                         {transportations.map((transportation) => (
                             <tr key={transportation.uuid}>
-                                <td>{transportation.status}</td>
-                                <td>{transportation.creation_date}</td>
-                                <td>{transportation.formation_date}</td>
-                                <td>{transportation.completion_date}</td>
-                                <td>{transportation.transport}</td>
+                                <td className='text-center'>{transportation.status}</td>
+                                <td className='text-center'>{transportation.creation_date}</td>
+                                <td className='text-center'>{transportation.formation_date}</td>
+                                <td className='text-center'>{transportation.completion_date}</td>
+                                <td className='text-center'>{transportation.transport}</td>
+                                <td className=''>
+                                    <Col className='d-flex flex-col align-items-center justify-content-center'>
+                                        <Link to={`/transportations/${transportation.uuid}`} className='text-decoration-none' >
+                                            <Button
+                                                variant='outline-secondary'
+                                                size='sm'
+                                                className='align-self-center'
+                                            >
+                                                Подробнее
+                                            </Button>
+                                        </Link>
+                                    </Col>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
                 </Table>
             ) : (
                 <LoadAnimation />
-            )}
-        </ AuthCheck>
+            )
+            }
+        </ AuthCheck >
     );
 }
 

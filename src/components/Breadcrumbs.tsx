@@ -1,12 +1,14 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 
-import { RootState } from '../store';
+import { AppDispatch, RootState } from "../store";
+import { cutHistory } from "../store/historySlice";
 
 function Breadcrumbs() {
     const pages = useSelector((state: RootState) => state.history.pages);
+    const dispatch = useDispatch<AppDispatch>();
 
     return (
         <>
@@ -14,7 +16,12 @@ function Breadcrumbs() {
                 <React.Fragment key={index}>
                     {index < pages.length - 1 ? (
                         <>
-                            <Link to={page.path} className="nav-link p-0 text-dark" data-bs-theme="dark">
+                            <Link
+                                to={page.path}
+                                className="nav-link p-0 text-dark"
+                                data-bs-theme="dark"
+                                onClick={() => dispatch(cutHistory(index))}
+                            >
                                 {page.name}
                             </Link>
                             <Nav.Item className='mx-1'>{">"}</Nav.Item>
