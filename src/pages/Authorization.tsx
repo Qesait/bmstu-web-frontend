@@ -3,14 +3,10 @@ import { Form, Button, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { axiosAPI } from '../api'
 import { AxiosResponse, AxiosError } from 'axios';
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../store";
-import { setRole } from "../store/authorizationSlice"
 
 const Authorization: FC = () => {
     const [login, setLogin] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    const dispatch = useDispatch<AppDispatch>();
 
     // TODO: Error handling? expires_in in redux
     const handleRegistration = (e: FormEvent<HTMLFormElement>) => {
@@ -18,7 +14,6 @@ const Authorization: FC = () => {
         axiosAPI.post('/user/login', { login, password })
             .then((response: AxiosResponse) => {
                 console.log('Response:', response.data);
-                dispatch(setRole(response.data.role));
                 localStorage.setItem('access_token', response.data.access_token);
                 localStorage.setItem('role', response.data.role);
                 localStorage.setItem('login', response.data.login);

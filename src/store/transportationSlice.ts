@@ -1,25 +1,55 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IContainer } from "../models";
+import { createSlice } from "@reduxjs/toolkit";
+import { ITransportation } from "../models";
 
 
 interface transportationState {
     draft: string | null
+    transportations: ITransportation[] | null
+    transportation: ITransportation | null
+
+    statusFilter: string
+    formationDateStart: string | null
+    formationDateEnd: string | null
 }
 
 const initialState: transportationState = {
-    draft: null
+    draft: null,
+    transportations: null,
+    transportation: null,
+
+    statusFilter: '',
+    formationDateStart: null,
+    formationDateEnd: null,
 }
 
 const transportationSlice = createSlice({
-    name: 'containerFilter',
+    name: 'transportatioin',
     initialState,
     reducers: {
         setDraft: (state, { payload }) => {
             state.draft = payload
+        },
+        setTransportations: (state, { payload }) => {
+            state.transportations = payload
+        },
+        setTransportation: (state, { payload }) => {
+            state.transportation = payload
+        },
+        resetTransportation: (state) => {
+            state.transportation = null
+        },
+        setStatusFilter: (state, { payload }) => {
+            state.statusFilter = payload
+        },
+        setDateStart: (state, { payload }) => {
+            state.formationDateStart = payload ? payload.toISOString() : null
+        },
+        setDateEnd: (state, { payload }) => {
+            state.formationDateEnd = payload ? payload.toISOString() : null
         },
     },
 });
 
 export default transportationSlice.reducer;
 
-export const { setDraft } = transportationSlice.actions;
+export const { setDraft, setTransportations, setTransportation, resetTransportation, setStatusFilter, setDateStart, setDateEnd } = transportationSlice.actions;
