@@ -1,8 +1,19 @@
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import NavigationBar from './components/NavBar';
+import { useDispatch } from "react-redux";
+
 import { Main, AllContainers, ContainersTable, ContainerInfo, ContainerEdit, AllTransportations, TransportationInfo, Authorization, Registration } from './pages'
+import NavigationBar from './components/NavBar';
+
+import { AppDispatch } from "./store";
+import { setLogin } from "./store/userSlice";
 
 function App() {
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(setLogin(localStorage.getItem('login')));
+  }, [dispatch]);
 
   return (
     <div className='d-flex flex-column vh-100'>
