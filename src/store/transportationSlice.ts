@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ITransportation } from "../models";
+import { ITransportation, IContainer } from "../models";
 
 
 interface transportationState {
     draft: string | null
     transportations: ITransportation[] | null
     transportation: ITransportation | null
+    transportationComposition: IContainer[]
 
     statusFilter: string
     formationDateStart: string | null
@@ -16,6 +17,7 @@ const initialState: transportationState = {
     draft: null,
     transportations: null,
     transportation: null,
+    transportationComposition: [],
 
     statusFilter: '',
     formationDateStart: null,
@@ -35,6 +37,9 @@ const transportationSlice = createSlice({
         setTransportation: (state, { payload }) => {
             state.transportation = payload
         },
+        setComposition: (state, { payload }) => {
+            state.transportationComposition = payload
+        },
         resetTransportation: (state) => {
             state.transportation = null
         },
@@ -52,4 +57,4 @@ const transportationSlice = createSlice({
 
 export default transportationSlice.reducer;
 
-export const { setDraft, setTransportations, setTransportation, resetTransportation, setStatusFilter, setDateStart, setDateEnd } = transportationSlice.actions;
+export const { setDraft, setTransportations, setTransportation, resetTransportation, setStatusFilter, setDateStart, setDateEnd, setComposition } = transportationSlice.actions;
