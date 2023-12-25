@@ -111,7 +111,7 @@ const TransportationInfo = () => {
                                         <InputGroup.Text>{transportation.status === 'отклонена' ? 'Отклонена' : 'Подтверждена'}</InputGroup.Text>
                                         <Form.Control readOnly value={transportation.completion_date ? transportation.completion_date : ''} />
                                     </InputGroup>
-                                    <InputGroup>
+                                    <InputGroup className='mb-1'>
                                         <InputGroup.Text>Транспорт</InputGroup.Text>
                                         <Form.Control
                                             readOnly={!edit}
@@ -129,9 +129,14 @@ const TransportationInfo = () => {
                                             Отменить
                                         </Button>}
                                     </InputGroup>
+                                    {transportation.status != 'черновик' &&
+                                        <InputGroup>
+                                            <InputGroup.Text>Статус доставки</InputGroup.Text>
+                                            <Form.Control readOnly value={transportation.delivery_status ? transportation.delivery_status : ''} />
+                                        </InputGroup>}
                                 </Card.Body>
                             </Card>
-                            <Row className='row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 px-1'>
+                            <Row className='row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 px-1 mt-2'>
                                 {composition.map((container) => (
                                     <div className='d-flex p-2 justify-content-center' key={container.uuid}>
                                         <SmallCCard  {...container} />

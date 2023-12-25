@@ -7,7 +7,7 @@ import { axiosAPI } from '../api'
 import { AxiosResponse, AxiosError } from 'axios';
 
 import { AppDispatch } from "../store";
-import { setLogin as setLoginRedux } from "../store/userSlice";
+import { setLogin as setLoginRedux, setRole } from "../store/userSlice";
 
 const Authorization: FC = () => {
     const [login, setLogin] = useState<string>('');
@@ -27,6 +27,7 @@ const Authorization: FC = () => {
                 localStorage.setItem('role', response.data.role);
                 localStorage.setItem('login', response.data.login);
                 dispatch(setLoginRedux(login));
+                dispatch(setRole(response.data.role));
                 navigate('/')
             })
             .catch((error: AxiosError) => {

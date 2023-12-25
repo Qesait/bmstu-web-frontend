@@ -13,7 +13,7 @@ import { setTransportations, setStatusFilter, setDateStart, setDateEnd } from ".
 import { clearHistory, addToHistory } from "../store/historySlice";
 
 import LoadAnimation from '../components/LoadAnimation';
-import AuthCheck, { CUSTOMER } from '../components/AuthCheck'
+import AuthCheck, { CUSTOMER, MODERATOR } from '../components/AuthCheck'
 
 interface ApiResponse {
     transportations: ITransportation[]
@@ -29,6 +29,7 @@ const AllTransportations = () => {
     const statusFilter = useSelector((state: RootState) => state.transportation.statusFilter);
     const dateStart = useSelector((state: RootState) => state.transportation.formationDateStart);
     const dateEnd = useSelector((state: RootState) => state.transportation.formationDateEnd);
+    const role = useSelector((state: RootState) => state.user.role);
     const dispatch = useDispatch<AppDispatch>();
     const location = useLocation().pathname;
 
@@ -79,7 +80,7 @@ const AllTransportations = () => {
             style={{ paddingRight: '1.5rem', minWidth: '137px' }}
             {...props}
         >
-            {props.value ? props.value : "Введите дату"}
+            {props.value ? props.value : "Выберите дату"}
         </Button>
     ));
 
@@ -110,6 +111,7 @@ const AllTransportations = () => {
                         timeCaption="Время"
                         dateFormat="HH:mm MM.d.yyyy"
                         customInput={<CustomInput />}
+                        className='text-nowrap'
                     />
                     <DatePicker
                         selected={dateEnd ? new Date(dateEnd) : null}
@@ -121,6 +123,7 @@ const AllTransportations = () => {
                         timeCaption="Время"
                         dateFormat="HH:mm MM.d.yyyy"
                         customInput={<CustomInput />}
+                        className='text-nowrap'
                     />
                     <Button
                         variant="primary"
@@ -135,6 +138,7 @@ const AllTransportations = () => {
                 <Table bordered hover>
                     <thead>
                         <tr>
+                            {role == MODERATOR && <th className='text-center'>Пользователь</th>}
                             <th className='text-center'>Статус</th>
                             <th className='text-center'>Дата создания</th>
                             <th className='text-center'>Дата формирования</th>
@@ -146,6 +150,7 @@ const AllTransportations = () => {
                     <tbody>
                         {transportations.map((transportation) => (
                             <tr key={transportation.uuid}>
+                                {role == MODERATOR && <td className='text-center'>{transportation.customer}</td>}
                                 <td className='text-center'>{transportation.status}</td>
                                 <td className='text-center'>{transportation.creation_date}</td>
                                 <td className='text-center'>{transportation.formation_date}</td>

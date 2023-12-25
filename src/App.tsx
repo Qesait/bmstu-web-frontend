@@ -6,13 +6,14 @@ import { Main, AllContainers, ContainersTable, ContainerInfo, ContainerEdit, All
 import NavigationBar from './components/NavBar';
 
 import { AppDispatch } from "./store";
-import { setLogin } from "./store/userSlice";
+import { setLogin, setRole } from "./store/userSlice";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(setLogin(localStorage.getItem('login')));
+    dispatch(setRole(localStorage.getItem('role')));
   }, [dispatch]);
 
   return (
