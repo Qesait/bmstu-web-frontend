@@ -11,15 +11,13 @@ import { ITransportation } from "../models";
 import Table from 'react-bootstrap/Table';
 import { format } from 'date-fns';
 import DatePicker from 'react-datepicker';
-import AuthCheck from '../components/AuthCheck'
+import AuthCheck, { CUSTOMER } from '../components/AuthCheck'
 
 import "react-datepicker/dist/react-datepicker.css";
 
 interface ApiResponse {
     transportations: ITransportation[]
 }
-
-
 
 const AllTransportations = () => {
     const transportations = useSelector((state: RootState) => state.transportation.transportations);
@@ -78,7 +76,7 @@ const AllTransportations = () => {
     ));
 
     return (
-        <AuthCheck>
+        <AuthCheck allowedRole={CUSTOMER}>
             <Navbar>
                 <Form className="d-flex flex-row align-items-stretch flex-grow-1 gap-2" onSubmit={handleSearch}>
                     <Form.Label className="m-0">Статус:</Form.Label>
