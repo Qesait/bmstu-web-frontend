@@ -10,7 +10,8 @@ import { setTransportations, setStatusFilter, setDateStart, setDateEnd } from ".
 import { ITransportation } from "../models";
 import Table from 'react-bootstrap/Table';
 import { format } from 'date-fns';
-import DatePicker from "react-datepicker";
+import DatePicker from 'react-datepicker';
+import AuthCheck from '../components/AuthCheck'
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -18,7 +19,9 @@ interface ApiResponse {
     transportations: ITransportation[]
 }
 
-const TransportationTable = () => {
+
+
+const AllTransportations = () => {
     const transportations = useSelector((state: RootState) => state.transportation.transportations);
     const statusFilter = useSelector((state: RootState) => state.transportation.statusFilter);
     const dateStart = useSelector((state: RootState) => state.transportation.formationDateStart);
@@ -75,21 +78,21 @@ const TransportationTable = () => {
     ));
 
     return (
-        <>
+        <AuthCheck>
             <Navbar>
                 <Form className="d-flex flex-row align-items-stretch flex-grow-1 gap-2" onSubmit={handleSearch}>
-                        <Form.Label className="m-0">Статус:</Form.Label>
-                        <Form.Select
-                            defaultValue={statusFilter}
-                            onChange={(status) => dispatch(setStatusFilter(status.target.value))}
-                            className="shadow-sm"
-                            size="sm"
-                        >
-                            <option value="">Любой</option>
-                            <option value="сформирована">Сформирована</option>
-                            <option value="завершёна">Завершена</option>
-                            <option value="отклонёна">Отклонена</option>
-                        </Form.Select>
+                    <Form.Label className="m-0">Статус:</Form.Label>
+                    <Form.Select
+                        defaultValue={statusFilter}
+                        onChange={(status) => dispatch(setStatusFilter(status.target.value))}
+                        className="shadow-sm"
+                        size="sm"
+                    >
+                        <option value="">Любой</option>
+                        <option value="сформирована">Сформирована</option>
+                        <option value="завершёна">Завершена</option>
+                        <option value="отклонёна">Отклонена</option>
+                    </Form.Select>
                     <DatePicker
                         selected={dateStart ? new Date(dateStart) : null}
                         onChange={(date: Date) => dispatch(setDateStart(date))}
@@ -147,20 +150,8 @@ const TransportationTable = () => {
             ) : (
                 <LoadAnimation />
             )}
-        </>
+        </ AuthCheck>
     );
-}
-
-
-const AllTransportations = () => {
-    const role = localStorage.getItem('role')
-    return (
-        role === null ? (
-            <h3 className="text-center">Для просмотра этой страницы необходимо авторизоваться</h3>
-        ) : (
-            <TransportationTable />
-        )
-    )
 }
 
 export default AllTransportations

@@ -14,6 +14,12 @@ const Authorization: FC = () => {
         axiosAPI.post('/user/login', { login, password })
             .then((response: AxiosResponse) => {
                 console.log('Response:', response.data);
+                console.log(parseInt(response.data.expires_in))
+                let currentTime = new Date()
+                let expires_at = new Date(currentTime.getTime() + parseInt(response.data.expires_in) / 1000000)
+                console.log(currentTime)
+                console.log(expires_at)
+                localStorage.setItem('expires_at', expires_at.toISOString());
                 localStorage.setItem('access_token', response.data.access_token);
                 localStorage.setItem('role', response.data.role);
                 localStorage.setItem('login', response.data.login);
