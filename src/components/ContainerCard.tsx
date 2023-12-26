@@ -1,6 +1,6 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import { Link } from 'react-router-dom';
-import Card from 'react-bootstrap/Card';
+import {Card, ButtonGroup} from 'react-bootstrap';
 import ListGroup from 'react-bootstrap/ListGroup';
 import CardImage from './CardImage';
 import { IContainer } from '../models'
@@ -10,9 +10,13 @@ import { IContainer } from '../models'
 //     event.target.src = '/placeholder3.jpg';
 // };
 
-export const SmallCCard: FC<IContainer> = ({ uuid, marking, type, image_url, cargo, weight }) => (
+interface CardProps extends IContainer {
+    children: ReactNode;
+}
 
-    <Card className='w-100 mx-auto px-0 shadow-lg text-center'>
+export const SmallCCard: FC<CardProps> = ({ children, uuid, marking, type, image_url, cargo, weight }) => (
+
+    <Card className='w-100 mx-auto px-0 shadow-lg text-center' key={uuid}>
         <div className="ratio ratio-16x9 overflow-hidden">
             <CardImage url={image_url} className='rounded object-fit-cover' />
         </div>
@@ -22,7 +26,10 @@ export const SmallCCard: FC<IContainer> = ({ uuid, marking, type, image_url, car
             <Card.Text>Груз: {cargo}</Card.Text>
             <Card.Text>Вес: {weight} кг</Card.Text>
         </Card.Body>
-        <Link to={`/containers/${uuid}`} className="btn btn-primary">Подробнее</Link>
+        <ButtonGroup vertical>
+            <Link to={`/containers/${uuid}`} className="btn btn-outline-primary">Подробнее</Link>
+            <>{children}</>
+        </ButtonGroup>
     </Card>
 )
 
