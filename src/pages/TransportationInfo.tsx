@@ -17,7 +17,7 @@ import Breadcrumbs from '../components/Breadcrumbs';
 const TransportationInfo = () => {
     let { transportation_id } = useParams()
     const [transportation, setTransportation] = useState<ITransportation | null>(null)
-    const [composition, setComposition] = useState<IContainer[]>([])
+    const [composition, setComposition] = useState<IContainer[] | null>([])
     const [loaded, setLoaded] = useState(false)
     const dispatch = useDispatch<AppDispatch>();
     const location = useLocation().pathname;
@@ -167,7 +167,7 @@ const TransportationInfo = () => {
                                 </ButtonGroup>}
                         </Card.Body>
                     </Card>
-                    <Row className='row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 px-1 mt-2'>
+                    {composition && <Row className='row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 px-1 mt-2'>
                         {composition.map((container) => (
                             <div className='d-flex p-2 justify-content-center' key={container.uuid}>
                                 <SmallCCard  {...container}>
@@ -181,7 +181,7 @@ const TransportationInfo = () => {
                                 </SmallCCard>
                             </div>
                         ))}
-                    </Row>
+                    </Row>}
                 </Col>
             </>
         ) : (

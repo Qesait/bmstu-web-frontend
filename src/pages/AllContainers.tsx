@@ -60,6 +60,8 @@ const AllContainers = () => {
             });
     }
 
+    console.log(draft)
+
     return (
         <>
             <Navbar>
@@ -101,11 +103,13 @@ const AllContainers = () => {
                     <LoadAnimation />
                 )}
             </div>
-            {draft && <Link
-                to={`/transportations/${draft}`}
-                className="btn btn-primary rounded-pill"
-                style={{ position: 'fixed', bottom: '16px', right: '16px', zIndex: '1000' }}>
-                Корзина
+            {!!role && <Link to={`/transportations/${draft}`}>
+                <Button
+                    style={{ position: 'fixed', bottom: '16px', right: '16px', zIndex: '1000' }}
+                    className="btn btn-primary rounded-pill"
+                    disabled={!draft}>
+                    Корзина
+                </Button>
             </Link>}
         </>
     )

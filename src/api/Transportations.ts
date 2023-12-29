@@ -60,8 +60,8 @@ export async function getTransportations(
 }
 
 interface TransportationResponse {
-    transportation: ITransportation
     containers: IContainer[]
+    transportation: ITransportation
 }
 
 export async function getTransportation(id: string | undefined): Promise<TransportationResponse | null> {
