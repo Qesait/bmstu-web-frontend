@@ -2,21 +2,15 @@ import { containers, draft_transportation } from './MockData';
 import { IContainer } from '../models';
 import axios, { AxiosRequestConfig } from 'axios';
 
-
 const ip = 'localhost'
 const port = '3000'
 export const imagePlaceholder = `${import.meta.env.BASE_URL}placeholder.jpg`
 
-export const axiosAPI = axios.create({ baseURL: `http://${ip}:${port}/api/`, timeout: 500 });
+export const axiosAPI = axios.create({ baseURL: `http://${ip}:${port}/api/`, timeout: 2000 });
 export const axiosImage = axios.create({ baseURL: `http://${ip}:${port}/images/`, timeout: 1000 });
 
-type Draft = {
-    uuid: string;
-    container_count: number;
-}
-
 export type Response = {
-    draft_transportation: Draft | null;
+    draft_transportation: string | null;
     containers: IContainer[];
 }
 

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -6,29 +6,28 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, Link } from 'react-router-dom';
 
 import { getAllContainers, axiosAPI } from '../api'
+import { IContainer } from '../models'
 
 import { AppDispatch, RootState } from "../store";
-import { setFilter, setContainers } from "../store/containerSlice"
+import { setType } from "../store/searchSlice"
 import { clearHistory, addToHistory } from "../store/historySlice"
-import { setDraft } from '../store/transportationSlice';
 
 import { SmallCCard } from '../components/ContainerCard';
 import LoadAnimation from '../components/LoadAnimation';
 
 const AllContainers = () => {
-    const searchText = useSelector((state: RootState) => state.container.searchText);
-    const containers = useSelector((state: RootState) => state.container.containers);
+    const searchText = useSelector((state: RootState) => state.search.type);
+    const [containers, setContainers] = useState<IContainer[]>([])
+    const [draft, setDraft] = useState<string | null>(null)
     const role = useSelector((state: RootState) => state.user.role);
-    const draft = useSelector((state: RootState) => state.transportation.draft);
     const dispatch = useDispatch<AppDispatch>();
     const location = useLocation().pathname;
 
     const getContainers = () =>
         getAllContainers(searchText)
             .then(data => {
-                console.log(data)
-                dispatch(setContainers(data?.containers))
-                dispatch(setDraft(data?.draft_transportation?.uuid))
+                setContainers(data.containers)
+                setDraft(data.draft_transportation)
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
@@ -53,8 +52,8 @@ const AllContainers = () => {
         }
 
         axiosAPI.post(`/containers/${id}/add_to_transportation`, null, { headers: { 'Authorization': `Bearer ${accessToken}`, } })
-            .then(response => {
-                dispatch(setDraft(response.data.uuid))
+            .then(() => {
+                getContainers();
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
@@ -71,7 +70,7 @@ const AllContainers = () => {
                         className="form-control-sm flex-grow-1 shadow"
                         data-bs-theme="dark"
                         value={searchText}
-                        onChange={(e) => dispatch(setFilter(e.target.value))}
+                        onChange={(e) => dispatch(setType(e.target.value))}
                     />
                     <Button
                         variant="primary"

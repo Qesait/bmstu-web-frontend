@@ -1,13 +1,13 @@
 import { FC, useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 
 import { getContainer } from '../api'
+import { IContainer } from '../models';
 
-import { AppDispatch, RootState } from "../store";
-import { setContainer, resetContainer } from "../store/containerSlice"
+import { AppDispatch } from "../store";
 import { addToHistory } from "../store/historySlice"
 
 import LoadAnimation from '../components/LoadAnimation';
@@ -16,7 +16,7 @@ import Breadcrumbs from '../components/Breadcrumbs';
 
 const ContainerInfo: FC = () => {
     let { container_id } = useParams()
-    const container = useSelector((state: RootState) => state.container.container);
+    const [container, setContainer] = useState<IContainer | undefined>(undefined)
     const [loaded, setLoaded] = useState<boolean>(false)
     const dispatch = useDispatch<AppDispatch>();
     const location = useLocation().pathname;
@@ -26,17 +26,13 @@ const ContainerInfo: FC = () => {
     useEffect(() => {
         getContainer(container_id)
             .then(data => {
-                dispatch(setContainer(data))
-                dispatch(addToHistory({ path: location, name: data ? data.marking : "неизвестно" }))
-                setLoaded(true)
+                setContainer(data);
+                dispatch(addToHistory({ path: location, name: data ? data.marking : "неизвестно" }));
+                setLoaded(true);
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
             });
-
-        return () => {
-            dispatch(resetContainer());
-        };
     }, [dispatch]);
 
     return loaded ? (

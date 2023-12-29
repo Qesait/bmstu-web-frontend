@@ -17,7 +17,7 @@ function NavigationBar() {
         if (!accessToken) {
             return
         }
-        axiosAPI.post('/user/logout', null, { headers: { 'Authorization': `Bearer ${accessToken}` } })
+        axiosAPI.get('/user/logout', { headers: { 'Authorization': `Bearer ${accessToken}` } })
             .then(_ => {
                 dispatch(resetLogin())
                 dispatch(resetRole())

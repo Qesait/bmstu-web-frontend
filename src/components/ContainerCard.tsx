@@ -15,7 +15,6 @@ interface CardProps extends IContainer {
 }
 
 export const SmallCCard: FC<CardProps> = ({ children, uuid, marking, type, image_url, cargo, weight }) => (
-
     <Card className='w-100 mx-auto px-0 shadow-lg text-center' key={uuid}>
         <div className="ratio ratio-16x9 overflow-hidden">
             <CardImage url={image_url} className='rounded object-fit-cover' />

@@ -1,88 +1,48 @@
-import { useEffect, forwardRef, ButtonHTMLAttributes } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, Link } from 'react-router-dom';
-import { format } from 'date-fns';
-import DatePicker from 'react-datepicker';
 import { Navbar, Form, Button, Table, Col, InputGroup } from 'react-bootstrap';
 
-import { axiosAPI } from "../api";
+import { getTransportations } from '../api/Transportations';
 import { ITransportation } from "../models";
 
 import { AppDispatch, RootState } from "../store";
-import { setTransportations, setStatusFilter, setDateStart, setDateEnd } from "../store/transportationSlice";
+import { setStatus, setDateStart, setDateEnd } from "../store/searchSlice";
 import { clearHistory, addToHistory } from "../store/historySlice";
 
 import LoadAnimation from '../components/LoadAnimation';
 import { MODERATOR } from '../components/AuthCheck'
-
-interface ApiResponse {
-    transportations: ITransportation[]
-}
-
-interface CustomInputProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    value?: string;
-    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-}
+import DateTimePicker from '../components/DatePicker';
 
 const AllTransportations = () => {
-    const transportations = useSelector((state: RootState) => state.transportation.transportations);
-    const statusFilter = useSelector((state: RootState) => state.transportation.statusFilter);
-    const dateStart = useSelector((state: RootState) => state.transportation.formationDateStart);
-    const dateEnd = useSelector((state: RootState) => state.transportation.formationDateEnd);
+    const [transportations, setTransportations] = useState<ITransportation[]>([])
+    const statusFilter = useSelector((state: RootState) => state.search.status);
+    const startDate = useSelector((state: RootState) => state.search.formationDateStart);
+    const endDate = useSelector((state: RootState) => state.search.formationDateEnd);
     const role = useSelector((state: RootState) => state.user.role);
     const dispatch = useDispatch<AppDispatch>();
     const location = useLocation().pathname;
 
-    const getTransportations = () => {
-        let accessToken = localStorage.getItem('access_token');
-        if (!accessToken) {
-            return
-        }
-
-        axiosAPI.get<ApiResponse>('/transportations', {
-            params: {
-                ...(statusFilter && { status: statusFilter }),
-                ...(dateStart && { formation_date_start: format(new Date(dateStart), 'yyyy-MM-dd HH:mm') }),
-                ...(dateEnd && { formation_date_end: format(new Date(dateEnd), 'yyyy-MM-dd HH:mm') }),
-            },
-            headers: {
-                'Authorization': `Bearer ${accessToken}`,
-                'Content-Type': 'application/json',
-            }
-        })
-            .then(response => {
-                console.log(response.data)
-                dispatch(setTransportations(response.data.transportations))
-            })
+    const handleSearch = (event: React.FormEvent<any>) => {
+        event.preventDefault();
+        getTransportations(statusFilter, startDate, endDate)
+            .then((data) => setTransportations(data))
             .catch((error) => {
                 console.error("Error fetching data:", error);
             });
     }
 
-
-    const handleSearch = (event: React.FormEvent<any>) => {
-        event.preventDefault();
-        getTransportations();
-    }
-
     useEffect(() => {
         dispatch(clearHistory())
         dispatch(addToHistory({ path: location, name: "Перевозки" }))
-        getTransportations();
+        getTransportations(statusFilter, startDate, endDate)
+            .then((data) => setTransportations(data))
+            .catch((error) => {
+                console.error("Error fetching data:", error);
+            });
     }, [dispatch]);
 
-    const CustomInput = forwardRef<HTMLButtonElement, CustomInputProps>((props, ref) => (
-        <Button
-            variant="outline-dark"
-            ref={ref}
-            size="sm"
-            className="text-nowrap shadow-sm"
-            style={{ paddingRight: '1.5rem', minWidth: '137px' }}
-            {...props}
-        >
-            {props.value ? props.value : "Выберите дату"}
-        </Button>
-    ));
+    //TODO: fix time zones
 
     return (
         <>
@@ -92,7 +52,7 @@ const AllTransportations = () => {
                         <InputGroup.Text >Статус</InputGroup.Text>
                         <Form.Select
                             defaultValue={statusFilter}
-                            onChange={(status) => dispatch(setStatusFilter(status.target.value))}
+                            onChange={(status) => dispatch(setStatus(status.target.value))}
                             className="shadow-sm"
                         >
                             <option value="">Любой</option>
@@ -101,29 +61,13 @@ const AllTransportations = () => {
                             <option value="отклонёна">Отклонена</option>
                         </Form.Select>
                     </InputGroup>
-                    <DatePicker
-                        selected={dateStart ? new Date(dateStart) : null}
-                        onChange={(date: Date) => dispatch(setDateStart(date))}
-                        showTimeSelect
-                        timeFormat="HH:mm"
-                        timeIntervals={60}
-                        isClearable
-                        timeCaption="Время"
-                        dateFormat="HH:mm MM.d.yyyy"
-                        customInput={<CustomInput />}
-                        className='text-nowrap'
+                    <DateTimePicker
+                        selected={endDate ? new Date(endDate) : null}
+                        onChange={(date: Date) => dispatch(setDateStart(date ? date.toISOString() : null))}
                     />
-                    <DatePicker
-                        selected={dateEnd ? new Date(dateEnd) : null}
-                        onChange={(date: Date) => dispatch(setDateEnd(date))}
-                        showTimeSelect
-                        timeFormat="HH:mm"
-                        timeIntervals={60}
-                        isClearable
-                        timeCaption="Время"
-                        dateFormat="HH:mm MM.d.yyyy"
-                        customInput={<CustomInput />}
-                        className='text-nowrap'
+                    <DateTimePicker
+                        selected={startDate ? new Date(startDate) : null}
+                        onChange={(date: Date) => dispatch(setDateEnd(date ? date.toISOString() : null))}
                     />
                     <Button
                         variant="primary"

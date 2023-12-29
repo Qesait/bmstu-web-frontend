@@ -14,8 +14,12 @@ function App() {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(setLogin(localStorage.getItem('login')));
-    dispatch(setRole(localStorage.getItem('role')));
+    const login = localStorage.getItem('login');
+    const role = localStorage.getItem('role');
+    if (login && role) {
+      dispatch(setLogin(login));
+      dispatch(setRole(parseInt(role)));
+    }
   }, [dispatch]);
 
   return (
@@ -23,7 +27,7 @@ function App() {
       <NavigationBar />
       <div className='container-xl d-flex flex-column px-2 px-sm-3 flex-grow-1'>
         <Routes>
-          <Route path="/" element={<Navigate to="/conainers" />} />
+          <Route path="/" element={<Navigate to="/containers" />} />
           <Route path="/containers" element={<AllContainers />} />
           <Route path="/containers/edit" element={<AuthCheck allowedRoles={[MODERATOR]}><ContainersTable /></AuthCheck>} />
           <Route path="/containers/:container_id" element={<ContainerInfo />} />

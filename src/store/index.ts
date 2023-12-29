@@ -1,14 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import containerReducer from "./containerSlice";
-import transportationReducer from "./transportationSlice";
+import searchReducer from "./searchSlice";
 import historyReducer from "./historySlice";
 import userReducer from "./userSlice";
 
 export const store = configureStore({
     reducer: {
-        container: containerReducer,
-        transportation: transportationReducer,
+        search: searchReducer,
         history: historyReducer,
         user: userReducer,
     },
