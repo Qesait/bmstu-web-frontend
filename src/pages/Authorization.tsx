@@ -39,8 +39,7 @@ const Authorization: FC = () => {
     const authorize = async (login: string, password: string): Promise<void> => {
         const response = await axiosAPI.post<AuthResp>('/user/login', { login, password });
         const payload = parseJwt(response.data.access_token);
-        let currentTime = new Date();
-        let expires_at = new Date(currentTime.getTime() + payload.exp / 1000000);
+        let expires_at = new Date(payload.exp * 1000);
         localStorage.setItem('expires_at', expires_at.toISOString());
         localStorage.setItem('access_token', response.data.access_token);
         localStorage.setItem('role', payload.role.toString());
@@ -60,7 +59,7 @@ const Authorization: FC = () => {
     return (
         <Container fluid="sm" className='d-flex flex-column flex-grow-1 align-items-center justify-content-center'>
             <Form onSubmit={handleRegistration} className='d-flex flex-column align-items-center'>
-                <h2>Авторизация</h2>
+                <h2>Вход</h2>
 
                 <Form.Group controlId="login" className='d-flex flex-column align-items-center mt-2'>
                     <Form.Label>Логин</Form.Label>

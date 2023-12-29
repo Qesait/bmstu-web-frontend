@@ -13,7 +13,7 @@ import { setTransportations, setStatusFilter, setDateStart, setDateEnd } from ".
 import { clearHistory, addToHistory } from "../store/historySlice";
 
 import LoadAnimation from '../components/LoadAnimation';
-import AuthCheck, { CUSTOMER, MODERATOR } from '../components/AuthCheck'
+import { MODERATOR } from '../components/AuthCheck'
 
 interface ApiResponse {
     transportations: ITransportation[]
@@ -85,7 +85,7 @@ const AllTransportations = () => {
     ));
 
     return (
-        <AuthCheck allowedRole={CUSTOMER}>
+        <>
             <Navbar>
                 <Form className="d-flex flex-row align-items-stretch flex-grow-1 gap-2" onSubmit={handleSearch}>
                     <InputGroup size='sm'>
@@ -177,7 +177,7 @@ const AllTransportations = () => {
                 <LoadAnimation />
             )
             }
-        </ AuthCheck >
+        </>
     );
 }
 

@@ -87,7 +87,7 @@ const AllContainers = () => {
                     containers.map((container) => (
                         <div className='d-flex p-2 justify-content-center' key={container.uuid}>
                             <SmallCCard  {...container}>
-                                {role != '0' &&
+                                {role != 0 &&
                                     <Button
                                         variant='outline-primary'
                                         className='mt-0 rounded-bottom'

@@ -131,7 +131,7 @@ const TransportationInfo = () => {
     }
 
     return (
-        <AuthCheck allowedRole={CUSTOMER}>
+        <AuthCheck allowedRoles={[CUSTOMER]}>
             {loaded ? (
                 transportation ? (
                     <>

@@ -1,4 +1,3 @@
-export { default as Main } from './Main';
 export { default as AllContainers } from './AllContainers';
 export { default as ContainersTable } from './ContainersTable';
 export { default as ContainerInfo } from './ContainerInfo';

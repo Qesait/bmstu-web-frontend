@@ -1,12 +1,14 @@
 import { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 
-import { Main, AllContainers, ContainersTable, ContainerInfo, ContainerEdit, AllTransportations, TransportationInfo, Authorization, Registration } from './pages'
+import { AllContainers, ContainersTable, ContainerInfo, ContainerEdit, AllTransportations, TransportationInfo, Authorization, Registration } from './pages'
 import NavigationBar from './components/NavBar';
 
 import { AppDispatch } from "./store";
 import { setLogin, setRole } from "./store/userSlice";
+
+import AuthCheck, { CUSTOMER, MODERATOR } from './components/AuthCheck'
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -21,15 +23,14 @@ function App() {
       <NavigationBar />
       <div className='container-xl d-flex flex-column px-2 px-sm-3 flex-grow-1'>
         <Routes>
-          <Route path="/" element={<Main />} />
-
+          <Route path="/" element={<Navigate to="/conainers" />} />
           <Route path="/containers" element={<AllContainers />} />
-          <Route path="/containers/edit" element={<ContainersTable />} />
+          <Route path="/containers/edit" element={<AuthCheck allowedRoles={[MODERATOR]}><ContainersTable /></AuthCheck>} />
           <Route path="/containers/:container_id" element={<ContainerInfo />} />
-          <Route path="/containers/edit/:container_id" element={<ContainerEdit />} />
+          <Route path="/containers/edit/:container_id" element={<AuthCheck allowedRoles={[MODERATOR]}><ContainerEdit /></AuthCheck>} />
 
-          <Route path="/transportations" element={<AllTransportations />} />
-          <Route path="/transportations/:transportation_id" element={<TransportationInfo />} />
+          <Route path="/transportations" element={<AuthCheck allowedRoles={[CUSTOMER, MODERATOR]}><AllTransportations /></AuthCheck>} />
+          <Route path="/transportations/:transportation_id" element={<AuthCheck allowedRoles={[CUSTOMER, MODERATOR]}><TransportationInfo /></AuthCheck>} />
 
           <Route path="/registration" element={<Registration />} />
           <Route path="/authorization" element={<Authorization />} />
