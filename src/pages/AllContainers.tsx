@@ -84,8 +84,8 @@ const AllContainers = () => {
                 </Form>
             </Navbar>
             <div className='row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 px-1'>
-                {containers ? (
-                    containers.map((container) => (
+                <LoadAnimation loaded={containers.length > 0}>
+                    {containers.map((container) => (
                         <div className='d-flex p-2 justify-content-center' key={container.uuid}>
                             <SmallCCard  {...container}>
                                 {role != 0 &&
@@ -98,10 +98,8 @@ const AllContainers = () => {
                                 }
                             </SmallCCard>
                         </div>
-                    ))
-                ) : (
-                    <LoadAnimation />
-                )}
+                    ))}
+                </LoadAnimation>
             </div>
             {!!role && <Link to={`/transportations/${draft}`}>
                 <Button

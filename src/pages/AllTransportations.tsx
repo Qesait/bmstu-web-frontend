@@ -24,8 +24,7 @@ const AllTransportations = () => {
     const location = useLocation().pathname;
     const [loaded, setLoaded] = useState(false)
 
-    const handleSearch = (event: React.FormEvent<any>) => {
-        event.preventDefault();
+    const getData = () => {
         setLoaded(false)
         getTransportations(statusFilter, startDate, endDate)
             .then((data) => {
@@ -35,27 +34,23 @@ const AllTransportations = () => {
             .catch((error) => {
                 console.error("Error fetching data:", error);
                 setLoaded(true)
-            });
+            })
+    };
+
+    const handleSearch = (event: React.FormEvent<any>) => {
+        event.preventDefault();
+        getData()
     }
 
     useEffect(() => {
         dispatch(clearHistory())
         dispatch(addToHistory({ path: location, name: "Перевозки" }))
-        setLoaded(false)
-        getTransportations(statusFilter, startDate, endDate)
-            .then((data) => {
-                setTransportations(data)
-                setLoaded(true)
-            })
-            .catch((error) => {
-                console.error("Error fetching data:", error);
-                setLoaded(true)
-            });
+        getData()
     }, [dispatch]);
 
     //TODO: fix time zones
 
-    return loaded ? (
+    return (
         <>
             <Navbar>
                 <Form className="d-flex flex-row align-items-stretch flex-grow-1 gap-2" onSubmit={handleSearch}>
@@ -68,8 +63,8 @@ const AllTransportations = () => {
                         >
                             <option value="">Любой</option>
                             <option value="сформирована">Сформирована</option>
-                            <option value="завершёна">Завершена</option>
-                            <option value="отклонёна">Отклонена</option>
+                            <option value="завершена">Подтверждена</option>
+                            <option value="отклонена">Отклонена</option>
                         </Form.Select>
                     </InputGroup>
                     <DateTimePicker
@@ -89,49 +84,48 @@ const AllTransportations = () => {
                     </Button>
                 </Form>
             </Navbar>
-            <Table bordered hover>
-                <thead>
-                    <tr>
-                        {role == MODERATOR && <th className='text-center'>Пользователь</th>}
-                        <th className='text-center'>Статус</th>
-                        <th className='text-center'>Дата создания</th>
-                        <th className='text-center'>Дата формирования</th>
-                        <th className='text-center'>Дата завершения</th>
-                        <th className='text-center'>Транспорт</th>
-                        <th className='text-center'></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {transportations.map((transportation) => (
-                        <tr key={transportation.uuid}>
-                            {role == MODERATOR && <td className='text-center'>{transportation.customer}</td>}
-                            <td className='text-center'>{transportation.status}</td>
-                            <td className='text-center'>{transportation.creation_date}</td>
-                            <td className='text-center'>{transportation.formation_date}</td>
-                            <td className='text-center'>{transportation.completion_date}</td>
-                            <td className='text-center'>{transportation.transport}</td>
-                            <td className=''>
-                                <Col className='d-flex flex-col align-items-center justify-content-center'>
-                                    <Link to={`/transportations/${transportation.uuid}`} className='text-decoration-none' >
-                                        <Button
-                                            variant='outline-secondary'
-                                            size='sm'
-                                            className='align-self-center'
-                                        >
-                                            Подробнее
-                                        </Button>
-                                    </Link>
-                                </Col>
-                            </td>
+            < LoadAnimation loaded={loaded}>
+                <Table bordered hover>
+                    <thead>
+                        <tr>
+                            {role == MODERATOR && <th className='text-center'>Пользователь</th>}
+                            <th className='text-center'>Статус</th>
+                            <th className='text-center'>Дата создания</th>
+                            <th className='text-center'>Дата формирования</th>
+                            <th className='text-center'>Дата завершения</th>
+                            <th className='text-center'>Транспорт</th>
+                            <th className='text-center'></th>
                         </tr>
-                    ))}
-                </tbody>
-            </Table>
+                    </thead>
+                    <tbody>
+                        {transportations.map((transportation) => (
+                            <tr key={transportation.uuid}>
+                                {role == MODERATOR && <td className='text-center'>{transportation.customer}</td>}
+                                <td className='text-center'>{transportation.status}</td>
+                                <td className='text-center'>{transportation.creation_date}</td>
+                                <td className='text-center'>{transportation.formation_date}</td>
+                                <td className='text-center'>{transportation.completion_date}</td>
+                                <td className='text-center'>{transportation.transport}</td>
+                                <td className=''>
+                                    <Col className='d-flex flex-col align-items-center justify-content-center'>
+                                        <Link to={`/transportations/${transportation.uuid}`} className='text-decoration-none' >
+                                            <Button
+                                                variant='outline-secondary'
+                                                size='sm'
+                                                className='align-self-center'
+                                            >
+                                                Подробнее
+                                            </Button>
+                                        </Link>
+                                    </Col>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            </LoadAnimation >
         </>
-    ) : (
-        <LoadAnimation />
-
-    );
+    )
 }
 
 export default AllTransportations

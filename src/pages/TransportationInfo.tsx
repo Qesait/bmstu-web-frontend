@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from "react-redux";
 import { useParams, useLocation, useNavigate } from 'react-router-dom'
-import { Card, Row, Col, Navbar, Nav, InputGroup, Form, Button, ButtonGroup } from 'react-bootstrap';
+import { Card, Row, Col, Navbar, InputGroup, Form, Button, ButtonGroup } from 'react-bootstrap';
 
 import { axiosAPI } from "../api";
 import { getTransportation } from '../api/Transportations';
@@ -38,11 +38,12 @@ const TransportationInfo = () => {
                     setComposition(data.containers);
 
                 }
+                setLoaded(true)
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
+                setLoaded(true)
             });
-        setLoaded(true)
     }
 
     const update = () => {
@@ -110,85 +111,85 @@ const TransportationInfo = () => {
             });
     }
 
-    return loaded ? (
-        transportation ? (
-            <>
-                <Navbar>
-                    <Nav>
-                        <Breadcrumbs />
-                    </Nav>
-                </Navbar>
-                <Col className='p-3'>
-                    <Card className='shadow text center text-md-start'>
-                        <Card.Body>
-                            <InputGroup className='mb-1'>
-                                <InputGroup.Text>Статус</InputGroup.Text>
-                                <Form.Control readOnly value={transportation.status} />
-                            </InputGroup>
-                            <InputGroup className='mb-1'>
-                                <InputGroup.Text>Создана</InputGroup.Text>
-                                <Form.Control readOnly value={transportation.creation_date} />
-                            </InputGroup>
-                            <InputGroup className='mb-1'>
-                                <InputGroup.Text>Сформирована</InputGroup.Text>
-                                <Form.Control readOnly value={transportation.formation_date ? transportation.formation_date : ''} />
-                            </InputGroup>
-                            <InputGroup className='mb-1'>
-                                <InputGroup.Text>{transportation.status === 'отклонена' ? 'Отклонена' : 'Подтверждена'}</InputGroup.Text>
-                                <Form.Control readOnly value={transportation.completion_date ? transportation.completion_date : ''} />
-                            </InputGroup>
-                            <InputGroup className='mb-1'>
-                                <InputGroup.Text>Транспорт</InputGroup.Text>
-                                <Form.Control
-                                    readOnly={!edit}
-                                    value={transport}
-                                    onChange={(e) => setTransport(e.target.value)}
-                                />
-                                {!edit && transportation.status === 'черновик' && <Button onClick={() => setEdit(true)}>Изменить</Button>}
-                                {edit && <Button variant='success' onClick={update}>Сохранить</Button>}
-                                {edit && <Button
-                                    variant='danger'
-                                    onClick={() => {
-                                        setTransport(transportation.transport ? transportation.transport : '');
-                                        setEdit(false)
-                                    }}>
-                                    Отменить
-                                </Button>}
-                            </InputGroup>
-                            {transportation.status != 'черновик' &&
+    console.log(transportation)
+
+    return (
+        <LoadAnimation loaded={loaded}>
+            {transportation ? (
+                <>
+                    <Navbar>
+                            <Breadcrumbs />
+                    </Navbar>
+                    <Col className='p-3 pt-1'>
+                        <Card className='shadow text center text-md-start'>
+                            <Card.Body>
                                 <InputGroup className='mb-1'>
-                                    <InputGroup.Text>Статус доставки</InputGroup.Text>
-                                    <Form.Control readOnly value={transportation.delivery_status ? transportation.delivery_status : ''} />
+                                    <InputGroup.Text className='t-input-group-text'>Статус</InputGroup.Text>
+                                    <Form.Control readOnly value={transportation.status} />
+                                </InputGroup>
+                                <InputGroup className='mb-1'>
+                                    <InputGroup.Text className='t-input-group-text'>Создана</InputGroup.Text>
+                                    <Form.Control readOnly value={transportation.creation_date} />
+                                </InputGroup>
+                                <InputGroup className='mb-1'>
+                                    <InputGroup.Text className='t-input-group-text'>Сформирована</InputGroup.Text>
+                                    <Form.Control readOnly value={transportation.formation_date ? transportation.formation_date : ''} />
+                                </InputGroup>
+                                {(transportation.status == 'отклонена' || transportation.status == 'завершена') && <InputGroup className='mb-1'>
+                                    <InputGroup.Text className='t-input-group-text'>{transportation.status === 'отклонена' ? 'Отклонена' : 'Подтверждена'}</InputGroup.Text>
+                                    <Form.Control readOnly value={transportation.completion_date ? transportation.completion_date : ''} />
                                 </InputGroup>}
-                            {transportation.status == 'черновик' &&
-                                <ButtonGroup className='flex-grow-1 w-100'>
-                                    <Button variant='success' onClick={confirm}>Сформировать</Button>
-                                    <Button variant='danger' onClick={deleteT}>Удалить</Button>
-                                </ButtonGroup>}
-                        </Card.Body>
-                    </Card>
-                    {composition && <Row className='row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 px-1 mt-2'>
-                        {composition.map((container) => (
-                            <div className='d-flex p-2 justify-content-center' key={container.uuid}>
-                                <SmallCCard  {...container}>
-                                    {transportation.status == 'черновик' &&
-                                        <Button
-                                            variant='outline-danger'
-                                            className='mt-0 rounded-bottom'
-                                            onClick={delFromTransportation(container.uuid)}>
-                                            Удалить
-                                        </Button>}
-                                </SmallCCard>
-                            </div>
-                        ))}
-                    </Row>}
-                </Col>
-            </>
-        ) : (
-            <h4 className='text-center'>Такой перевозки не существует</h4>
-        )
-    ) : (
-        <LoadAnimation />
+                                <InputGroup className='mb-1'>
+                                    <InputGroup.Text className='t-input-group-text'>Транспорт</InputGroup.Text>
+                                    <Form.Control
+                                        readOnly={!edit}
+                                        value={transport}
+                                        onChange={(e) => setTransport(e.target.value)}
+                                    />
+                                    {!edit && transportation.status === 'черновик' && <Button onClick={() => setEdit(true)}>Изменить</Button>}
+                                    {edit && <Button variant='success' onClick={update}>Сохранить</Button>}
+                                    {edit && <Button
+                                        variant='danger'
+                                        onClick={() => {
+                                            setTransport(transportation.transport ? transportation.transport : '');
+                                            setEdit(false)
+                                        }}>
+                                        Отменить
+                                    </Button>}
+                                </InputGroup>
+                                {transportation.status != 'черновик' &&
+                                    <InputGroup className='mb-1'>
+                                        <InputGroup.Text className='t-input-group-text'>Статус доставки</InputGroup.Text>
+                                        <Form.Control readOnly value={transportation.delivery_status ? transportation.delivery_status : ''} />
+                                    </InputGroup>}
+                                {transportation.status == 'черновик' &&
+                                    <ButtonGroup className='flex-grow-1 w-100'>
+                                        <Button variant='success' onClick={confirm}>Сформировать</Button>
+                                        <Button variant='danger' onClick={deleteT}>Удалить</Button>
+                                    </ButtonGroup>}
+                            </Card.Body>
+                        </Card>
+                        {composition && <Row className='row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 px-1 mt-2'>
+                            {composition.map((container) => (
+                                <div className='d-flex p-2 justify-content-center' key={container.uuid}>
+                                    <SmallCCard  {...container}>
+                                        {transportation.status == 'черновик' &&
+                                            <Button
+                                                variant='outline-danger'
+                                                className='mt-0 rounded-bottom'
+                                                onClick={delFromTransportation(container.uuid)}>
+                                                Удалить
+                                            </Button>}
+                                    </SmallCCard>
+                                </div>
+                            ))}
+                        </Row>}
+                    </Col>
+                </>
+            ) : (
+                <h4 className='text-center'>Такой перевозки не существует</h4>
+            )}
+        </LoadAnimation>
     )
 }
 
