@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, Link } from 'react-router-dom';
-import { Navbar, Form, Button, Table, Col, InputGroup } from 'react-bootstrap';
+import { Navbar, Form, Button, Table, InputGroup } from 'react-bootstrap';
 
 import { getTransportations } from '../api/Transportations';
 import { ITransportation } from "../models";
@@ -54,12 +54,11 @@ const AllTransportations = () => {
         <>
             <Navbar>
                 <Form className="d-flex flex-row align-items-stretch flex-grow-1 gap-2" onSubmit={handleSearch}>
-                    <InputGroup size='sm'>
+                    <InputGroup size='sm' className='shadow-sm'>
                         <InputGroup.Text >Статус</InputGroup.Text>
                         <Form.Select
                             defaultValue={statusFilter}
                             onChange={(status) => dispatch(setStatus(status.target.value))}
-                            className="shadow-sm"
                         >
                             <option value="">Любой</option>
                             <option value="сформирована">Сформирована</option>
@@ -106,18 +105,16 @@ const AllTransportations = () => {
                                 <td className='text-center'>{transportation.formation_date}</td>
                                 <td className='text-center'>{transportation.completion_date}</td>
                                 <td className='text-center'>{transportation.transport}</td>
-                                <td className=''>
-                                    <Col className='d-flex flex-col align-items-center justify-content-center'>
-                                        <Link to={`/transportations/${transportation.uuid}`} className='text-decoration-none' >
-                                            <Button
-                                                variant='outline-secondary'
-                                                size='sm'
-                                                className='align-self-center'
-                                            >
-                                                Подробнее
-                                            </Button>
-                                        </Link>
-                                    </Col>
+                                <td className='p-1 text-center align-middle'>
+                                    <Link to={`/transportations/${transportation.uuid}`} className='text-decoration-none' >
+                                        <Button
+                                            variant='outline-secondary'
+                                            size='sm'
+                                            className='align-self-center'
+                                        >
+                                            Подробнее
+                                        </Button>
+                                    </Link>
                                 </td>
                             </tr>
                         ))}

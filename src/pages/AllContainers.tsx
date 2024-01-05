@@ -36,6 +36,7 @@ const AllContainers = () => {
 
     const handleSearch = (event: React.FormEvent<any>) => {
         event.preventDefault();
+        setContainers([])
         getContainers();
     }
 
@@ -59,8 +60,6 @@ const AllContainers = () => {
                 console.error("Error fetching data:", error);
             });
     }
-
-    console.log(draft)
 
     return (
         <>

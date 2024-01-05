@@ -29,9 +29,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/containers" />} />
           <Route path="/containers" element={<AllContainers />} />
-          <Route path="/containers/edit" element={<AuthCheck allowedRoles={[MODERATOR]}><ContainersTable /></AuthCheck>} />
           <Route path="/containers/:container_id" element={<ContainerInfo />} />
-          <Route path="/containers/edit/:container_id" element={<AuthCheck allowedRoles={[MODERATOR]}><ContainerEdit /></AuthCheck>} />
+          <Route path="/containers-edit" element={<AuthCheck allowedRoles={[MODERATOR]}><ContainersTable /></AuthCheck>} />
+          <Route path="/containers-edit/:container_id" element={<AuthCheck allowedRoles={[MODERATOR]}><ContainerEdit /></AuthCheck>} />
 
           <Route path="/transportations" element={<AuthCheck allowedRoles={[CUSTOMER, MODERATOR]}><AllTransportations /></AuthCheck>} />
           <Route path="/transportations/:transportation_id" element={<AuthCheck allowedRoles={[CUSTOMER, MODERATOR]}><TransportationInfo /></AuthCheck>} />
