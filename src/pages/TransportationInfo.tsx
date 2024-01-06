@@ -11,7 +11,7 @@ import { AppDispatch } from "../store";
 import { addToHistory } from "../store/historySlice";
 
 import LoadAnimation from '../components/LoadAnimation';
-import { SmallCCard } from '../components/ContainerCard';
+import ContainerCard from '../components/ContainerCard';
 import Breadcrumbs from '../components/Breadcrumbs';
 
 const TransportationInfo = () => {
@@ -172,7 +172,7 @@ const TransportationInfo = () => {
                         {composition && <Row className='row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 px-1 mt-2'>
                             {composition.map((container) => (
                                 <div className='d-flex p-2 justify-content-center' key={container.uuid}>
-                                    <SmallCCard  {...container}>
+                                    <ContainerCard  {...container}>
                                         {transportation.status == 'черновик' &&
                                             <Button
                                                 variant='outline-danger'
@@ -180,7 +180,7 @@ const TransportationInfo = () => {
                                                 onClick={delFromTransportation(container.uuid)}>
                                                 Удалить
                                             </Button>}
-                                    </SmallCCard>
+                                    </ContainerCard>
                                 </div>
                             ))}
                         </Row>}

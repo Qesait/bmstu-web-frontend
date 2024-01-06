@@ -39,7 +39,7 @@ function NavigationBar() {
                     <Nav className="me-auto flex-grow-1">
                         <Link to="/containers" className="nav-link">Контейнеры</Link>
                         <Link to="/transportations" className="nav-link">Перевозки</Link>
-                        {userRole === MODERATOR && <Link to="/containers-edit" className="nav-link">Управление контейнерами</Link>}
+                        {userRole === MODERATOR && <Link to="/containers-edit" className="nav-link text-nowrap">Управление контейнерами</Link>}
                         <Navbar.Collapse className="justify-content-end">
                             {userLogin ? (
                                 <>

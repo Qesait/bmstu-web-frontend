@@ -12,7 +12,7 @@ import { AppDispatch, RootState } from "../store";
 import { setType } from "../store/searchSlice"
 import { clearHistory, addToHistory } from "../store/historySlice"
 
-import { SmallCCard } from '../components/ContainerCard';
+import ContainerCard from '../components/ContainerCard';
 import LoadAnimation from '../components/LoadAnimation';
 
 const AllContainers = () => {
@@ -86,7 +86,7 @@ const AllContainers = () => {
                 <LoadAnimation loaded={containers.length > 0}>
                     {containers.map((container) => (
                         <div className='d-flex p-2 justify-content-center' key={container.uuid}>
-                            <SmallCCard  {...container}>
+                            <ContainerCard  {...container}>
                                 {role != 0 &&
                                     <Button
                                         variant='outline-primary'
@@ -95,7 +95,7 @@ const AllContainers = () => {
                                         Добавить в корзину
                                     </Button>
                                 }
-                            </SmallCCard>
+                            </ContainerCard>
                         </div>
                     ))}
                 </LoadAnimation>
