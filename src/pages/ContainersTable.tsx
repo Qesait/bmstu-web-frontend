@@ -92,25 +92,30 @@ const ContainerTable = () => {
                                 <td className='text-center'>{container.cargo}</td>
                                 <td className='text-center'>{container.weight}</td>
                                 <td className='text-center align-middle'>
-                                    <table className='table m-0'>
-                                        <tr>
-                                            <Link
-                                                to={`/containers-edit/${container.uuid}`}
-                                                className='btn btn-sm btn-outline-secondary text-decoration-none w-100' >
-                                                Редактировать
-                                            </Link>
-                                        </tr>
-                                        <tr><td className='p-1'></td></tr>
-                                        <tr>
-                                            <Button
-                                                variant='outline-danger'
-                                                size='sm'
-                                                className='w-100'
-                                                onClick={deleteContainer(container.uuid)}>
-                                                Удалить
-                                            </Button>
-                                        </tr>
-                                    </table>
+                                    <Table className='m-0'>
+                                        <tbody>
+                                            <tr>
+                                                <td style={{ background: 'transparent', border: 'none' }}>
+                                                    <Link
+                                                        to={`/containers-edit/${container.uuid}`}
+                                                        className='btn btn-sm btn-outline-secondary text-decoration-none w-100' >
+                                                        Редактировать
+                                                    </Link>
+                                                </td>
+                                            </tr>
+                                            <tr >
+                                                <td style={{ background: 'transparent', border: 'none' }}>
+                                                    <Button
+                                                        variant='outline-danger'
+                                                        size='sm'
+                                                        className='w-100'
+                                                        onClick={deleteContainer(container.uuid)}>
+                                                        Удалить
+                                                    </Button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </Table>
                                 </td>
                             </tr>
                         ))}
