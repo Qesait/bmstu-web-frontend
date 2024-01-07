@@ -67,6 +67,7 @@ const ContainerTable = () => {
                         className="shadow-lg">
                         Поиск
                     </Button>
+                    <Link to='new' className='btn btn-sm btn-success shadow ms-sm-2'>Создать</Link>
                 </Form>
             </Navbar>
             < LoadAnimation loaded={containers.length > 0}>
