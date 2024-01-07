@@ -26,7 +26,7 @@ const CardImage = ({ url, className, ...props }: CardImageProps) => {
                 console.error(error.message);
             });
 
-    }, []);
+    }, [url]);
 
     const handleError = () => {
         console.error(`Error loading image: ${url}`);

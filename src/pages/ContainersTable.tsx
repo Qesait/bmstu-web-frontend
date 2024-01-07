@@ -91,11 +91,11 @@ const ContainerTable = () => {
                                 <td className='text-center'>{container.type}</td>
                                 <td className='text-center'>{container.cargo}</td>
                                 <td className='text-center'>{container.weight}</td>
-                                <td className='text-center align-middle'>
+                                <td className='text-center align-middle p-0'>
                                     <Table className='m-0'>
                                         <tbody>
                                             <tr>
-                                                <td style={{ background: 'transparent', border: 'none' }}>
+                                                <td className='py-1 border-0' style={{ background: 'transparent' }}>
                                                     <Link
                                                         to={`/containers-edit/${container.uuid}`}
                                                         className='btn btn-sm btn-outline-secondary text-decoration-none w-100' >
@@ -103,8 +103,8 @@ const ContainerTable = () => {
                                                     </Link>
                                                 </td>
                                             </tr>
-                                            <tr >
-                                                <td style={{ background: 'transparent', border: 'none' }}>
+                                            <tr>
+                                                <td className='py-1 border-0' style={{ background: 'transparent' }}>
                                                     <Button
                                                         variant='outline-danger'
                                                         size='sm'

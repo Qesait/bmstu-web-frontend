@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, ChangeEvent } from 'react';
+import { FC, useEffect, useState, ChangeEvent, useRef } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { Card, Row, Navbar, FloatingLabel, InputGroup, Form, Col, Button, ButtonGroup } from 'react-bootstrap';
@@ -20,6 +20,8 @@ const ContainerInfo: FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const location = useLocation().pathname;
     const [edit, setEdit] = useState<Boolean>(false)
+    const [image, setImage] = useState<File | undefined>(undefined);
+    const inputFile = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
         setLoaded(false);
@@ -46,12 +48,29 @@ const ContainerInfo: FC = () => {
             return
         }
         setEdit(false);
-        axiosAPI.put(`/containers/${container?.uuid}`, container, { headers: { 'Authorization': `Bearer ${accessToken}`, } })
+
+        const formData = new FormData();
+        if (container) {
+            Object.keys(container).forEach(key => {
+                if ((container as any)[key]) {
+                    formData.append(key, (container as any)[key])
+                }
+            });
+        }
+        if (image) {
+            formData.append('image', image);
+        }
+
+        axiosAPI.put(`/containers/${container?.uuid}`, formData, { headers: { 'Authorization': `Bearer ${accessToken}`, } })
             .then(() => getContainer(container_id).then((data) => setContainer(data)))
     }
 
     const cancel = () => {
         setEdit(false)
+        setImage(undefined)
+        if (inputFile.current) {
+            inputFile.current.value = ''
+        }
         getContainer(container_id)
             .then((data) => setContainer(data))
     }
@@ -101,10 +120,19 @@ const ContainerInfo: FC = () => {
                                         <InputGroup.Text className='c-input-group-text'>Груз</InputGroup.Text>
                                         <Form.Control id='cargo' value={container.cargo} readOnly={!edit} onChange={changeString} />
                                     </InputGroup>
-                                    <InputGroup className='mb-1'>
+                                    <InputGroup className='mb-3'>
                                         <InputGroup.Text className='c-input-group-text'>Вес</InputGroup.Text>
                                         <Form.Control id='weight' type='number' value={container.weight} readOnly={!edit} onChange={changeNumber} />
                                     </InputGroup>
+                                    <Form.Group className="mb-1">
+                                        <Form.Label>Выберите изображение</Form.Label>
+                                        <Form.Control
+                                            disabled={!edit}
+                                            type="file"
+                                            accept='image/*'
+                                            ref={inputFile}
+                                            onChange={(e: ChangeEvent<HTMLInputElement>) => setImage(e.target.files?.[0])} />
+                                    </Form.Group>
                                 </Card.Body>
                                 {edit ? (
                                     <ButtonGroup className='w-100'>
