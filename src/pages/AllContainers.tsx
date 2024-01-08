@@ -29,9 +29,6 @@ const AllContainers = () => {
                 setContainers(data.containers)
                 setDraft(data.draft_transportation)
             })
-            .catch((error) => {
-                console.error("Error fetching data:", error);
-            });
 
 
     const handleSearch = (event: React.FormEvent<any>) => {
@@ -56,9 +53,6 @@ const AllContainers = () => {
             .then(() => {
                 getContainers();
             })
-            .catch((error) => {
-                console.error("Error fetching data:", error);
-            });
     }
 
     return (

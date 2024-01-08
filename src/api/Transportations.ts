@@ -46,8 +46,7 @@ export async function getTransportations(
                 'Content-Type': 'application/json',
             },
         })
-        .then((response) =>
-            response.data.transportations
+        .then((response) => response.data.transportations
             .filter((tr: ITransportation) => tr.customer.toLowerCase().includes(user.toLowerCase()))
             .map((tr: ITransportation) => ({
                 ...tr,

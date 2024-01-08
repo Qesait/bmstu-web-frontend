@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import { Card, Row, Col, Navbar, InputGroup, Form, Button, ButtonGroup } from 'react-bootstrap';
 
@@ -7,17 +7,19 @@ import { axiosAPI } from "../api";
 import { getTransportation } from '../api/Transportations';
 import { ITransportation, IContainer } from "../models";
 
-import { AppDispatch } from "../store";
+import { AppDispatch, RootState } from "../store";
 import { addToHistory } from "../store/historySlice";
 
 import LoadAnimation from '../components/LoadAnimation';
 import ContainerCard from '../components/ContainerCard';
 import Breadcrumbs from '../components/Breadcrumbs';
+import { MODERATOR } from '../components/AuthCheck';
 
 const TransportationInfo = () => {
     let { transportation_id } = useParams()
     const [transportation, setTransportation] = useState<ITransportation | null>(null)
     const [composition, setComposition] = useState<IContainer[] | null>([])
+    const role = useSelector((state: RootState) => state.user.role);
     const [loaded, setLoaded] = useState(false)
     const dispatch = useDispatch<AppDispatch>();
     const location = useLocation().pathname;
@@ -54,9 +56,6 @@ const TransportationInfo = () => {
                 }
             })
             .then(() => getData())
-            .catch((error) => {
-                console.error("Error fetching data:", error);
-            });
         setEdit(false);
     }
 
@@ -87,9 +86,6 @@ const TransportationInfo = () => {
             .then(_ => {
                 getData()
             })
-            .catch((error) => {
-                console.error("Error fetching data:", error);
-            });
     }
 
     const deleteT = () => {
@@ -101,9 +97,14 @@ const TransportationInfo = () => {
             .then(_ => {
                 navigate('/containers')
             })
-            .catch((error) => {
-                console.error("Error fetching data:", error);
-            });
+    }
+
+    const moderator_confirm = (confirm: boolean) => () => {
+        const accessToken = localStorage.getItem('access_token');
+        axiosAPI.put(`/transportations/${transportation?.uuid}/moderator_confirm`,
+            { confirm: confirm },
+            { headers: { 'Authorization': `Bearer ${accessToken}`, } })
+            .then(() => getData())
     }
 
     return (
@@ -154,7 +155,14 @@ const TransportationInfo = () => {
                                     <InputGroup className='mb-1'>
                                         <InputGroup.Text className='t-input-group-text'>Статус доставки</InputGroup.Text>
                                         <Form.Control readOnly value={transportation.delivery_status ? transportation.delivery_status : ''} />
-                                    </InputGroup>}
+                                    </InputGroup>
+                                }
+                                {transportation.status == 'сформирована' && role == MODERATOR &&
+                                    <ButtonGroup className='flex-grow-1 w-100'>
+                                        <Button variant='success' onClick={moderator_confirm(true)}>Подтвердить</Button>
+                                        <Button variant='danger' onClick={moderator_confirm(false)}>Отменить</Button>
+                                    </ButtonGroup>
+                                }
                                 {transportation.status == 'черновик' &&
                                     <ButtonGroup className='flex-grow-1 w-100'>
                                         <Button variant='success' onClick={confirm}>Сформировать</Button>
