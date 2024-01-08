@@ -21,6 +21,7 @@ function formatDate(date: Date | null): string {
 }
 
 export async function getTransportations(
+    user: string,
     status: string,
     startDate: string | null,
     endDate: string | null
@@ -46,7 +47,9 @@ export async function getTransportations(
             },
         })
         .then((response) =>
-            response.data.transportations.map((tr: ITransportation) => ({
+            response.data.transportations
+            .filter((tr: ITransportation) => tr.customer.toLowerCase().includes(user.toLowerCase()))
+            .map((tr: ITransportation) => ({
                 ...tr,
                 creation_date: formatDate(new Date(tr.creation_date)),
                 formation_date: tr.formation_date

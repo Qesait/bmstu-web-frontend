@@ -1,5 +1,5 @@
 import { FC, useEffect, useState, ChangeEvent, useRef } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { Card, Row, Navbar, FloatingLabel, InputGroup, Form, Col, Button, ButtonGroup } from 'react-bootstrap';
 
@@ -22,6 +22,7 @@ const ContainerInfo: FC = () => {
     const [edit, setEdit] = useState<boolean>(false)
     const [image, setImage] = useState<File | undefined>(undefined);
     const inputFile = useRef<HTMLInputElement | null>(null);
+    const navigate = useNavigate()
 
     // There is no god beyond that
     useEffect(() => {
@@ -65,6 +66,12 @@ const ContainerInfo: FC = () => {
 
     const changeNumber = (e: ChangeEvent<HTMLInputElement>) => {
         setContainer(container ? { ...container, [e.target.id]: parseInt(e.target.value) } : undefined)
+    }
+
+    const deleteContainer = () => {
+        let accessToken = localStorage.getItem('access_token');
+        axiosAPI.delete(`/containers/${container_id}`, { headers: { 'Authorization': `Bearer ${accessToken}`, } })
+            .then(() => navigate('/containers-edit'))
     }
 
     const save = (event: React.FormEvent<HTMLFormElement>) => {
@@ -177,11 +184,13 @@ const ContainerInfo: FC = () => {
                                             {container_id != 'new' && <Button variant='danger' onClick={cancel}>Отменить</Button>}
                                         </ButtonGroup>
                                     ) : (
-                                        <Button
-                                            className='w-100 '
-                                            onClick={() => setEdit(true)}>
-                                            Изменить
-                                        </Button>
+                                        <ButtonGroup className='w-100'>
+                                            <Button
+                                                onClick={() => setEdit(true)}>
+                                                Изменить
+                                            </Button>
+                                            <Button variant='danger' onClick={deleteContainer}>Удалить</Button>
+                                        </ButtonGroup>
                                     )}
                                 </Form>
                             </Col>

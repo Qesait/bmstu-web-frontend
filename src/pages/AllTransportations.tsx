@@ -7,7 +7,7 @@ import { getTransportations } from '../api/Transportations';
 import { ITransportation } from "../models";
 
 import { AppDispatch, RootState } from "../store";
-import { setStatus, setDateStart, setDateEnd } from "../store/searchSlice";
+import { setUser, setStatus, setDateStart, setDateEnd } from "../store/searchSlice";
 import { clearHistory, addToHistory } from "../store/historySlice";
 
 import LoadAnimation from '../components/LoadAnimation';
@@ -16,6 +16,7 @@ import DateTimePicker from '../components/DatePicker';
 
 const AllTransportations = () => {
     const [transportations, setTransportations] = useState<ITransportation[]>([])
+    const userFilter = useSelector((state: RootState) => state.search.user);
     const statusFilter = useSelector((state: RootState) => state.search.status);
     const startDate = useSelector((state: RootState) => state.search.formationDateStart);
     const endDate = useSelector((state: RootState) => state.search.formationDateEnd);
@@ -24,36 +25,39 @@ const AllTransportations = () => {
     const location = useLocation().pathname;
     const [loaded, setLoaded] = useState(false)
 
+
+    console.log(startDate)
+
     const getData = () => {
-        setLoaded(false)
-        getTransportations(statusFilter, startDate, endDate)
+        getTransportations(userFilter, statusFilter, startDate, endDate)
             .then((data) => {
-                setTransportations(data)
                 setLoaded(true);
-            })
-            .catch((error) => {
-                console.error("Error fetching data:", error);
-                setLoaded(true)
+                setTransportations(data)
             })
     };
 
     const handleSearch = (event: React.FormEvent<any>) => {
         event.preventDefault();
-        getData()
     }
 
     useEffect(() => {
         dispatch(clearHistory())
         dispatch(addToHistory({ path: location, name: "Перевозки" }))
         getData()
-    }, [dispatch]);
-
-    //TODO: fix time zones
+        const intervalId = setInterval(() => {
+            getData();
+        }, 2000);
+        return () => clearInterval(intervalId);
+    }, [dispatch, userFilter, statusFilter, startDate, endDate]);
 
     return (
         <>
             <Navbar>
                 <Form className="d-flex flex-row align-items-stretch flex-grow-1 gap-2" onSubmit={handleSearch}>
+                    {role == MODERATOR && <InputGroup size='sm' className='shadow-sm'>
+                        <InputGroup.Text>Пользователь</InputGroup.Text>
+                        <Form.Control value={userFilter} onChange={(e) => dispatch(setUser(e.target.value))} />
+                    </InputGroup>}
                     <InputGroup size='sm' className='shadow-sm'>
                         <InputGroup.Text >Статус</InputGroup.Text>
                         <Form.Select
@@ -62,7 +66,7 @@ const AllTransportations = () => {
                         >
                             <option value="">Любой</option>
                             <option value="сформирована">Сформирована</option>
-                            <option value="завершена">Подтверждена</option>
+                            <option value="завершена">Завершена</option>
                             <option value="отклонена">Отклонена</option>
                         </Form.Select>
                     </InputGroup>
@@ -89,6 +93,7 @@ const AllTransportations = () => {
                         <tr>
                             {role == MODERATOR && <th className='text-center'>Пользователь</th>}
                             <th className='text-center'>Статус</th>
+                            <th className='text-center'>Статус доставки</th>
                             <th className='text-center'>Дата создания</th>
                             <th className='text-center'>Дата формирования</th>
                             <th className='text-center'>Дата завершения</th>
@@ -101,6 +106,7 @@ const AllTransportations = () => {
                             <tr key={transportation.uuid}>
                                 {role == MODERATOR && <td className='text-center'>{transportation.customer}</td>}
                                 <td className='text-center'>{transportation.status}</td>
+                                <td className='text-center'>{transportation.delivery_status}</td>
                                 <td className='text-center'>{transportation.creation_date}</td>
                                 <td className='text-center'>{transportation.formation_date}</td>
                                 <td className='text-center'>{transportation.completion_date}</td>

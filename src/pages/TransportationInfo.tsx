@@ -26,7 +26,6 @@ const TransportationInfo = () => {
     const navigate = useNavigate()
 
     const getData = () => {
-        setLoaded(false)
         getTransportation(transportation_id)
             .then(data => {
                 if (data === null) {
@@ -38,12 +37,7 @@ const TransportationInfo = () => {
                     setComposition(data.containers);
 
                 }
-                setLoaded(true)
             })
-            .catch((error) => {
-                console.error("Error fetching data:", error);
-                setLoaded(true)
-            });
     }
 
     const update = () => {
@@ -67,8 +61,9 @@ const TransportationInfo = () => {
     }
 
     useEffect(() => {
-        getData()
         dispatch(addToHistory({ path: location, name: "Перевозка" }))
+        getData()
+        setLoaded(true)
     }, [dispatch]);
 
     const delFromTransportation = (id: string) => () => {
@@ -111,14 +106,12 @@ const TransportationInfo = () => {
             });
     }
 
-    console.log(transportation)
-
     return (
         <LoadAnimation loaded={loaded}>
             {transportation ? (
                 <>
                     <Navbar>
-                            <Breadcrumbs />
+                        <Breadcrumbs />
                     </Navbar>
                     <Col className='p-3 pt-1'>
                         <Card className='shadow text center text-md-start'>
@@ -136,7 +129,7 @@ const TransportationInfo = () => {
                                     <Form.Control readOnly value={transportation.formation_date ? transportation.formation_date : ''} />
                                 </InputGroup>
                                 {(transportation.status == 'отклонена' || transportation.status == 'завершена') && <InputGroup className='mb-1'>
-                                    <InputGroup.Text className='t-input-group-text'>{transportation.status === 'отклонена' ? 'Отклонена' : 'Подтверждена'}</InputGroup.Text>
+                                    <InputGroup.Text className='t-input-group-text'>{transportation.status === 'отклонена' ? 'Отклонена' : 'Завершена'}</InputGroup.Text>
                                     <Form.Control readOnly value={transportation.completion_date ? transportation.completion_date : ''} />
                                 </InputGroup>}
                                 <InputGroup className='mb-1'>

@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 interface searchState {
     type: string
 
+    user: string
     status: string
     formationDateStart: string | null
     formationDateEnd: string | null
@@ -11,6 +12,7 @@ interface searchState {
 const initialState: searchState = {
     type: '',
 
+    user: '',
     status: '',
     formationDateStart: null,
     formationDateEnd: null,
@@ -22,6 +24,9 @@ const searchSlice = createSlice({
     reducers: {
         setType: (state, { payload }) => {
             state.type = payload
+        },
+        setUser: (state, { payload }) => {
+            state.user = payload
         },
         setStatus: (state, { payload }) => {
             state.status = payload
@@ -37,4 +42,4 @@ const searchSlice = createSlice({
 
 export default searchSlice.reducer;
 
-export const { setType, setStatus, setDateStart, setDateEnd } = searchSlice.actions;
+export const { setType, setUser, setStatus, setDateStart, setDateEnd } = searchSlice.actions;
