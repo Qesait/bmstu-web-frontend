@@ -1,27 +1,27 @@
-# React + TypeScript + Vite
+# Тема
+**Логистика контейнеров.**
+Услуги - список контейнеров с указанием груза.
+Заявки - заявка на перевозку со списком контейнеров и транспортным средством.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+# Бэкенд:
+## Основной сервис
+- [SSR (лаб 1)](https://github.com/Qesait/bmstu-web-backend/tree/ssr)
+- [База данных (лаб 2)](https://github.com/Qesait/bmstu-web-backend/tree/database)
+- [REST-API (лаб 3)](https://github.com/Qesait/bmstu-web-backend/tree/api)
+- [Аутентификация и авторизация (лаб 5)](https://github.com/Qesait/bmstu-web-backend/tree/authorization)
+- [Взаимодействие с асинхронным сервисом (лаб 8)](https://github.com/Qesait/bmstu-web-backend/tree/async-service)
+## Асинхронный сервис
+- [Асинхронный сервис (лаб 8)](https://github.com/Qesait/bmstu-web-async-service)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Фронтенд:
+- [SPA (лаб 4)](https://github.com/Qesait/bmstu-web-frontend/tree/spa)
+- [Redux (лаб 6)](https://github.com/Qesait/bmstu-web-frontend/tree/redux)
+- [Pages](https://qesait.github.io/bmstu-web-frontend/containers)
 
-## Expanding the ESLint configuration
+# Мобильное приложение:
+- [React Native (лаб 7)](https://github.com/Qesait/bmstu-web-mobile)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+# Домашнее задание:
+- [Интерфес модератора](https://github.com/Qesait/bmstu-web-frontend/tree/moderator-pages)
+- [РПЗ](https://github.com/Qesait/bmstu-web-backend/blob/async-service/%D0%A0%D0%9F%D0%97%20%D0%9A%D1%83%D0%B7%D0%BD%D0%B5%D1%86%D0%BE%D0%B2%20%D0%98%D0%A35-53%D0%91.docx)
