@@ -25,7 +25,7 @@ function App() {
   return (
     <div className='d-flex flex-column vh-100'>
       <NavigationBar />
-      <div className='container-xl d-flex flex-column px-2 px-sm-3 flex-grow-1'>
+      <div className='container-xl d-flex flex-column px-2 px-sm-4 flex-grow-1'>
         <Routes>
           <Route path="/" element={<Navigate to="/containers" />} />
           <Route path="/containers" element={<AllContainers />} />

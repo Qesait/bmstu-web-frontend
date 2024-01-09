@@ -1,5 +1,5 @@
 import { FC, useEffect, useState, ChangeEvent, useRef } from 'react';
-import { useLocation, useParams, useNavigate } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { Card, Row, Navbar, FloatingLabel, InputGroup, Form, Col, Button, ButtonGroup } from 'react-bootstrap';
 
@@ -22,9 +22,7 @@ const ContainerInfo: FC = () => {
     const [edit, setEdit] = useState<boolean>(false)
     const [image, setImage] = useState<File | undefined>(undefined);
     const inputFile = useRef<HTMLInputElement | null>(null);
-    const navigate = useNavigate()
 
-    // There is no god beyond that
     useEffect(() => {
         const getData = async () => {
             setLoaded(false);
@@ -66,12 +64,6 @@ const ContainerInfo: FC = () => {
 
     const changeNumber = (e: ChangeEvent<HTMLInputElement>) => {
         setContainer(container ? { ...container, [e.target.id]: parseInt(e.target.value) } : undefined)
-    }
-
-    const deleteContainer = () => {
-        let accessToken = localStorage.getItem('access_token');
-        axiosAPI.delete(`/containers/${container_id}`, { headers: { 'Authorization': `Bearer ${accessToken}`, } })
-            .then(() => navigate('/containers-edit'))
     }
 
     const save = (event: React.FormEvent<HTMLFormElement>) => {
@@ -129,8 +121,8 @@ const ContainerInfo: FC = () => {
                             <Col className='col-12 col-md-8 overflow-hidden p-0'>
                                 <CardImage url={container.image_url} />
                             </Col>
-                            <Col className='d-flex flex-column col-12 col-md-4 p-0'>
-                                <Form noValidate validated={edit} onSubmit={save}>
+                            {/* <Col > */}
+                                <Form noValidate validated={edit} onSubmit={save} className='d-flex flex-column col-12 col-md-4 p-0'>
                                     <Card.Body className='flex-grow-1'>
                                         <InputGroup hasValidation className='mb-1'>
                                             <InputGroup.Text className='c-input-group-text'>Маркировка</InputGroup.Text>
@@ -184,16 +176,14 @@ const ContainerInfo: FC = () => {
                                             {container_id != 'new' && <Button variant='danger' onClick={cancel}>Отменить</Button>}
                                         </ButtonGroup>
                                     ) : (
-                                        <ButtonGroup className='w-100'>
-                                            <Button
-                                                onClick={() => setEdit(true)}>
-                                                Изменить
-                                            </Button>
-                                            <Button variant='danger' onClick={deleteContainer}>Удалить</Button>
-                                        </ButtonGroup>
+                                        <Button
+                                            onClick={() => setEdit(true)}
+                                            className='w-100'>
+                                            Изменить
+                                        </Button>
                                     )}
                                 </Form>
-                            </Col>
+                            {/* </Col> */}
                         </Row>
                     </Card>
                 </ >

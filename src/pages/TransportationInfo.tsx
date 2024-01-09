@@ -114,7 +114,7 @@ const TransportationInfo = () => {
                     <Navbar>
                         <Breadcrumbs />
                     </Navbar>
-                    <Col className='p-3 pt-1'>
+                    <Col className='p-3 px-lg-0 pt-1'>
                         <Card className='shadow text center text-md-start'>
                             <Card.Body>
                                 <InputGroup className='mb-1'>

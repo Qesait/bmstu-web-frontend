@@ -39,7 +39,6 @@ const AllTransportations = () => {
     }
 
     useEffect(() => {
-        console.log('effect')
         dispatch(clearHistory())
         dispatch(addToHistory({ path: location, name: "Перевозки" }))
         getData()
@@ -54,7 +53,7 @@ const AllTransportations = () => {
         axiosAPI.put(`/transportations/${id}/moderator_confirm`,
             { confirm: confirm },
             { headers: { 'Authorization': `Bearer ${accessToken}`, } })
-            .then(() => setTransportations(prevTransportations => [...prevTransportations]))
+            .then(() => setTransportations(transportations => [...transportations]))
     }
 
     return (
@@ -104,7 +103,6 @@ const AllTransportations = () => {
                             <th className='text-center'>Дата создания</th>
                             <th className='text-center'>Дата формирования</th>
                             <th className='text-center'>Дата завершения</th>
-                            <th className='text-center'>Транспорт</th>
                             <th className='text-center'></th>
                         </tr>
                     </thead>
@@ -117,7 +115,6 @@ const AllTransportations = () => {
                                 <td className='text-center'>{transportation.creation_date}</td>
                                 <td className='text-center'>{transportation.formation_date}</td>
                                 <td className='text-center'>{transportation.completion_date}</td>
-                                <td className='text-center'>{transportation.transport}</td>
                                 <td className='p-0 text-center align-middle'>
                                     <Table className='m-0'>
                                         <tbody>
