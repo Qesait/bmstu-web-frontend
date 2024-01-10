@@ -33,7 +33,6 @@ const AllContainers = () => {
 
     const handleSearch = (event: React.FormEvent<any>) => {
         event.preventDefault();
-        setContainers([])
         getContainers();
     }
 

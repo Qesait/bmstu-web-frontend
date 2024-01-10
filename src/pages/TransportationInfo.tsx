@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useLocation, useNavigate } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 import { Card, Row, Col, Navbar, InputGroup, Form, Button, ButtonGroup } from 'react-bootstrap';
 
 import { axiosAPI } from "../api";
@@ -25,7 +25,6 @@ const TransportationInfo = () => {
     const location = useLocation().pathname;
     const [edit, setEdit] = useState(false)
     const [transport, setTransport] = useState<string>('')
-    const navigate = useNavigate()
 
     const getData = () => {
         getTransportation(transportation_id)
@@ -75,28 +74,6 @@ const TransportationInfo = () => {
             .catch((error) => {
                 console.error("Error fetching data:", error);
             });
-    }
-
-    const confirm = () => {
-        const accessToken = localStorage.getItem('access_token');
-        if (!accessToken) {
-            return
-        }
-        axiosAPI.put('/transportations/user_confirm', null, { headers: { 'Authorization': `Bearer ${accessToken}`, } })
-            .then(_ => {
-                getData()
-            })
-    }
-
-    const deleteT = () => {
-        const accessToken = localStorage.getItem('access_token');
-        if (!accessToken) {
-            return
-        }
-        axiosAPI.delete('/transportations', { headers: { 'Authorization': `Bearer ${accessToken}`, } })
-            .then(_ => {
-                navigate('/containers')
-            })
     }
 
     const moderator_confirm = (confirm: boolean) => () => {
@@ -163,11 +140,6 @@ const TransportationInfo = () => {
                                         <Button variant='danger' onClick={moderator_confirm(false)}>Отменить</Button>
                                     </ButtonGroup>
                                 }
-                                {transportation.status == 'черновик' &&
-                                    <ButtonGroup className='flex-grow-1 w-100'>
-                                        <Button variant='success' onClick={confirm}>Сформировать</Button>
-                                        <Button variant='danger' onClick={deleteT}>Удалить</Button>
-                                    </ButtonGroup>}
                             </Card.Body>
                         </Card>
                         {composition && <Row className='row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 px-1 mt-2'>

@@ -25,9 +25,15 @@ const AllTransportations = () => {
     const dispatch = useDispatch<AppDispatch>();
     const location = useLocation().pathname;
     const [loaded, setLoaded] = useState(false)
+    const [prevFilter, setPrevFilter] = useState({
+        userFilter,
+        statusFilter,
+        startDate,
+        endDate
+    })
 
     const getData = () => {
-        getTransportations(userFilter, statusFilter, startDate, endDate)
+        getTransportations(prevFilter.userFilter, prevFilter.statusFilter, prevFilter.startDate, prevFilter.endDate)
             .then((data) => {
                 setLoaded(true);
                 setTransportations(data)
@@ -36,6 +42,12 @@ const AllTransportations = () => {
 
     const handleSearch = (event: React.FormEvent<any>) => {
         event.preventDefault();
+        setPrevFilter({
+            userFilter,
+            statusFilter,
+            startDate,
+            endDate
+        })
     }
 
     useEffect(() => {
@@ -46,7 +58,7 @@ const AllTransportations = () => {
             getData();
         }, 2000);
         return () => clearInterval(intervalId);
-    }, [dispatch, userFilter, statusFilter, startDate, endDate]);
+    }, [dispatch, prevFilter]);
 
     const moderator_confirm = (id: string, confirm: boolean) => () => {
         const accessToken = localStorage.getItem('access_token');
